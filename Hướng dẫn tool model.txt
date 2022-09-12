@@ -1,0 +1,6 @@
+
+-------------Select Models Sql------------
+Scaffold-DbContext "Server=LAPTOP-RIDQL5T7\SQLEXPRESS;Database=TestTek4Tv;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+--------------Update Sql---------------
+Scaffold-DbContext "Server=LAPTOP-RIDQL5T7\SQLEXPRESS;Database=TestTek4Tv;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
