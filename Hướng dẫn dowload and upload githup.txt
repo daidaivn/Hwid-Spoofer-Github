@@ -1,6 +1,8 @@
 -----------Dowload-----------
 git clone https://github.com/daidaivn/ProjectTek4TV.git
 
+---------Dowload Update------
+git pull
 
 -----------Upload------------
 Chuột phải git bash here trước đường dẫn đến ApiProject
