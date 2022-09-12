@@ -1,0 +1,6 @@
+B1: git pull
+B2: git status
+B3: git add .
+B4: git status (text color all Green)
+B5: git commit -m "ex:note"
+B6: git push (=> done)
