@@ -63,6 +63,7 @@ namespace ApiProject.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_User_Role");
             });
 
