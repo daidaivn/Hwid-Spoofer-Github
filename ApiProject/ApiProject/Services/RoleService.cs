@@ -42,9 +42,10 @@ namespace ApiProject.Services
             var keyword = _context.Roles.Where(c => c.RoleName.Contains(role.RoleName));
             return keyword.ToList().AsQueryable();
         }
-        public IQueryable<dynamic> SearchByRoleID(Role role)
+        public dynamic SearchRoleById(Role role)
         {
-            return null;
+            var pzById = _context.Roles.FirstOrDefault(c => c.RoleId == role.RoleId);
+            return pzById;
         }
     }
 }

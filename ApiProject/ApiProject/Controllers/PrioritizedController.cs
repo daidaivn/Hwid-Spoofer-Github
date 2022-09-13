@@ -1,27 +1,27 @@
 ﻿using ApiProject.IServices;
 using ApiProject.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoleController : ControllerBase
+    public class PrioritizedController : ControllerBase
     {
-        private readonly IRoleServices _roleServices;
-        public RoleController(IRoleServices roleServices)
+        private readonly IPrioritizedServices _prioritizedServices;
+        public PrioritizedController(IPrioritizedServices prioritizedServices)
         {
-            _roleServices = roleServices;
+            _prioritizedServices = prioritizedServices;
         }
 
-        [Route("all-role")]
+        [Route("all-prioritized")]
         [HttpGet]
-        public dynamic getAllRole()
+        public dynamic getAllPrioritized()
         {
             try
             {
-                var data = _roleServices.getAllRole();
+                var data = _prioritizedServices.getAllPz();
                 return Ok(data);
             }
             catch (Exception e)
@@ -29,13 +29,13 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("create-role")]
+        [Route("create-prioritized")]
         [HttpPost]
-        public dynamic Create(Role role)
+        public dynamic CreatePz(Prioritized prioritized)
         {
             try
             {
-                var keyCreated = _roleServices.CreateRole(role);
+                var keyCreated = _prioritizedServices.CreatePz(prioritized);
                 return Ok(keyCreated);
             }
             catch (Exception e)
@@ -43,13 +43,13 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("update-role")]
+        [Route("update-prioritized")]
         [HttpPut]
-        public dynamic UpdateRole(Role role)
+        public dynamic UpdateRole(Prioritized prioritized)
         {
             try
             {
-                var keyUpdate = _roleServices.UpdateRole(role);
+                var keyUpdate = _prioritizedServices.UpdatePz(prioritized);
                 return Ok(keyUpdate);
             }
             catch (Exception e)
@@ -57,13 +57,13 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-role-name")]
+        [Route("search-prioritized-name")]
         [HttpPost]
-        public dynamic SearchByRoleName(Role role)
+        public dynamic SearchByRoleName(Prioritized prioritized)
         {
             try
             {
-                var data1 = _roleServices.SearchByRoleName(role);
+                var data1 = _prioritizedServices.SearchByPzName(prioritized);
                 return Ok(data1);
             }
             catch (Exception e)
@@ -73,11 +73,11 @@ namespace ApiProject.Controllers
         }
         [Route("search-role-id")]
         [HttpPost]
-        public dynamic SearchByRoleID(Role role)
+        public dynamic SearchByRoleID(Prioritized prioritized)
         {
             try
             {
-                var data1 = _roleServices.SearchRoleById(role);
+                var data1 = _prioritizedServices.SearchPzById(prioritized);
                 return Ok(data1);
             }
             catch (Exception e)

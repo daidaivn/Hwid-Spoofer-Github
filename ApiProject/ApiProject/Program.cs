@@ -30,6 +30,9 @@ internal class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
         builder.Services.AddScoped<IRoleServices, RoleService>();
+        builder.Services.AddScoped<IPrioritizedServices, PrioritizedService>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IWorkingStatusService, WorkingStatusService>();
 
         // In general
         builder.Services.AddCors(options =>
