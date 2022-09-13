@@ -42,5 +42,9 @@ namespace ApiProject.Services
             var keywork = _context.Roles.Where(c => c.RoleName.Contains(role.RoleName));
             return keywork.ToList().AsQueryable();
         }
+        public IQueryable<dynamic> SearchByRoleID(Role role)
+        {
+            return null;
+        }
     }
 }
