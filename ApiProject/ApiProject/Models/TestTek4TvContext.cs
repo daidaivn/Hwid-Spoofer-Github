@@ -58,7 +58,7 @@ namespace ApiProject.Models
 
                 entity.Property(e => e.Name).HasMaxLength(50);
 
-                entity.Property(e => e.Passwork).HasMaxLength(500);
+                entity.Property(e => e.Password).HasMaxLength(500);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)

@@ -58,7 +58,7 @@ namespace ApiProject.Controllers
         }
         [Route("SearchByWorkingStatusName")]
         [HttpPost]
-        public IQueryable<dynamic> SearchByWorkingStatusName (WorkingStatus workingStatus)
+        public dynamic SearchByWorkingStatusName (WorkingStatus workingStatus)
         {
             try
             {
@@ -67,12 +67,12 @@ namespace ApiProject.Controllers
             }
             catch   (Exception e)
             {
-                return e.Message
+                return e.Message;
             }
         }
          [Route("SearchByWorkingStatusId")]
         [HttpPost]
-        public IQueryable<dynamic> SearchByWorkingStatusId (WorkingStatus workingStatus)
+        public dynamic SearchByWorkingStatusId (WorkingStatus workingStatus)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace ApiProject.Controllers
             }
             catch   (Exception e)
             {
-                return e.Message
+                return e.Message;
             }
         }
     }

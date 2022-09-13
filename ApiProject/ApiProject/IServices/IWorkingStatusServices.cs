@@ -8,6 +8,6 @@ namespace ApiProject.IServices
          public dynamic CreateWorkingStatus(WorkingStatus workingStatus);
          public dynamic UpdateWorkingStatus (WorkingStatus workingStatus);
          public IQueryable<dynamic> SearchByWorkingStatusName (WorkingStatus workingStatus);
-         public IQueryable<dynamic> SearchByWorkingStatusId (WorkingStatus workingStatus);
+         public dynamic SearchByWorkingStatusId (WorkingStatus workingStatus);
     }
 }
