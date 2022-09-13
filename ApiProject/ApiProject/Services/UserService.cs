@@ -1,5 +1,6 @@
 ﻿using ApiProject.Models;
 using ApiProject.IServices;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ApiProject.Services
 {
@@ -34,8 +35,29 @@ namespace ApiProject.Services
         }
         public dynamic UpdateUser(User user)
         {
-            return _context.Users.Update(user);
+            var checkId = _context.Users.FirstOrDefault(c => c.UserId == user.UserId);
+            if(checkId == null)
+            {
+                return false;
+            }
+            else
+            {
+                checkId.UserId = user.UserId;
+                checkId.Name = user.Name;
+                checkId.Avatar = user.Avatar;
+                checkId.Email = user.Email;
+                checkId.Password = user.Password;
+                checkId.Address = user.Address;
+                checkId.Mobile = user.Mobile;
+                checkId.Gender = user.Gender;
+                checkId.RoleId = user.RoleId;
+                checkId.Status = user.Status;
+                _context.Users.Update(checkId);
+                _context.SaveChanges();
+                return checkId;
+            }
         }
+
 
     }
 }
