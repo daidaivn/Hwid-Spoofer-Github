@@ -14,7 +14,7 @@ namespace ApiProject.Controllers
             _workingStatusService = workingStatusService;
         }
 
-        [Route("getAllWorkingStatus")]
+        [Route("get-all-working-status")]
         [HttpGet]
         public dynamic getAllWorkingStatus()
         {
@@ -28,7 +28,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("Create")]
+        [Route("creat-ws")]
         [HttpPost]
         public dynamic Create(WorkingStatus workingStatus)
         {
@@ -42,7 +42,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("Updte")]
+        [Route("update-ws")]
         [HttpPut]
         public dynamic UpdateWorkingStatus (WorkingStatus workingStatus)
         {
@@ -56,7 +56,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("SearchByWorkingStatusName")]
+        [Route("search-by-ws-name")]
         [HttpPost]
         public dynamic SearchByWorkingStatusName (WorkingStatus workingStatus)
         {
@@ -70,7 +70,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-         [Route("SearchByWorkingStatusId")]
+        [Route("search-by-ws-id")]
         [HttpPost]
         public dynamic SearchByWorkingStatusId (WorkingStatus workingStatus)
         {

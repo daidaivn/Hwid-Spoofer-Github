@@ -1,5 +1,6 @@
 ﻿using ApiProject.IServices;
 using ApiProject.Models;
+using ApiProject.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,6 +44,63 @@ namespace ApiProject.Controllers
             }
                 
         }
+        [Route("update-working")]
+        [HttpPut]
+        public dynamic UpdateWorking(Working working)
+        {
+            try
+            {
+                var data = _workingService.UpdateWorking(working);
+                return Ok(working);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
+        [Route("search-by-working-name")]
+        [HttpPost]
+        public dynamic SearchByWorkingName(Working working)
+        {
+            try
+            {
+                var data = _workingService.SearchByWorkingName(working);
+                return Ok(working);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [Route("search-by-working-name")]
+        [HttpPost]
+        public dynamic SearchByWorkingId(Working working)
+        {
+            try
+            {
+                var data = _workingService.SearchByWorkingId(working);
+                return Ok(working);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [Route("change-status-woking")]
+        [HttpDelete]
+        public dynamic ChangeStatus(Working working)
+        {
+            try
+            {
+                var data = _workingService.ChangeStatus(working);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+
+        }
     }
 }
