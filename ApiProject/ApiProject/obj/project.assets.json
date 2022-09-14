@@ -2265,11 +2265,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\tekfix\\ProjectTek4TV\\ApiProject\\ApiProject\\ApiProject.csproj",
+      "projectUniqueName": "C:\\TEk4NEW\\ProjectTek4TV\\ApiProject\\ApiProject\\ApiProject.csproj",
       "projectName": "ApiProject",
-      "projectPath": "C:\\tekfix\\ProjectTek4TV\\ApiProject\\ApiProject\\ApiProject.csproj",
+      "projectPath": "C:\\TEk4NEW\\ProjectTek4TV\\ApiProject\\ApiProject\\ApiProject.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\tekfix\\ProjectTek4TV\\ApiProject\\ApiProject\\obj\\",
+      "outputPath": "C:\\TEk4NEW\\ProjectTek4TV\\ApiProject\\ApiProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

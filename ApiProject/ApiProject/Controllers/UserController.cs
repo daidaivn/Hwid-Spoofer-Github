@@ -56,7 +56,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("delete-user")]
+        [Route("change-status-user")]
         [HttpDelete]
         public dynamic ChangeStatus(User user)
         {

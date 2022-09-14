@@ -128,6 +128,8 @@ namespace ApiProject.Models
             OnModelCreatingPartial(modelBuilder);
         }
 
+      
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
