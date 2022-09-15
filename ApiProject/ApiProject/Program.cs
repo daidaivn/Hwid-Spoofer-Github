@@ -33,6 +33,7 @@ internal class Program
         builder.Services.AddScoped<IPrioritizedServices, PrioritizedService>();
         //builder.Services.AddScoped<IUserServices, UserService>();
         builder.Services.AddScoped<IWorkingStatusService, WorkingStatusService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
         //builder.Services.AddScoped<IWorkingService, WorkingService>();
 
         // In general

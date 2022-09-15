@@ -11,7 +11,8 @@ namespace ApiProject.Models
         }
 
         public int CategoryId { get; set; }
-        public int CategoryName { get; set; }
+        public string? CategoryName { get; set; }
+        public bool? Status { get; set; }
 
         public virtual ICollection<Working> Workings { get; set; }
     }

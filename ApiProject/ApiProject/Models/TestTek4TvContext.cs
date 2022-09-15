@@ -39,6 +39,8 @@ namespace ApiProject.Models
             {
                 entity.ToTable("Category");
 
+                entity.Property(e => e.CategoryName).HasMaxLength(50);
+
                 entity.HasMany(d => d.Workings)
                     .WithMany(p => p.Categories)
                     .UsingEntity<Dictionary<string, object>>(
