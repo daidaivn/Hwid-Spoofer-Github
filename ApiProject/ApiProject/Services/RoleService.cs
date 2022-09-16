@@ -19,6 +19,7 @@ namespace ApiProject.Services
             Role rl = new Role
             {
                 RoleName = role.RoleName,
+                Status = true,
             };
             _context.Roles.Add(rl);
             _context.SaveChanges();

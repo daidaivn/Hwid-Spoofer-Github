@@ -18,10 +18,10 @@ namespace ApiProject.Models
         public string? Password { get; set; }
         public string? Address { get; set; }
         public string? Mobile { get; set; }
-        public int GenderId { get; set; }
+        public int? GenderId { get; set; }
         public bool? Status { get; set; }
 
-        public virtual Gender Gender { get; set; } = null!;
+        public virtual Gender? Gender { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
         public virtual ICollection<Working> Workings { get; set; }
