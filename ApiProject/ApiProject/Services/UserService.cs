@@ -17,8 +17,8 @@ namespace ApiProject.Services
             var output = from item in items
                          select new
                          {
-                             item.Name,
                              item.UserId,
+                             item.Name,
                              item.Avatar,
                              item.Email,
                              item.Password,
@@ -26,13 +26,14 @@ namespace ApiProject.Services
                              item.Mobile,
                              item.GenderId,
                              item.Gender.GenderName,
-                             Roles = from r in item.Roles
-                                     select new
-                                     {
-                                         r.RoleId,
-                                         r.RoleName,
-                                         r.Status
-                                     }
+                             item.Roles
+                             //Roles = from r in item.Roles
+                             //        select new
+                             //        {
+                             //            r.RoleId,
+                             //            r.RoleName,
+                             //            r.Status
+                             //        }
                          };
             return output;
         }

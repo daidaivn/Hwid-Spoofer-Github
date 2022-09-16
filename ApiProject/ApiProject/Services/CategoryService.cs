@@ -43,6 +43,7 @@ namespace ApiProject.Services
                 return checkId;
             }
         }
+        // Change Status
         public dynamic DeleteCategory(Category category)
         {
             var checkId = _context.Categories.FirstOrDefault(c => c.CategoryId == category.CategoryId);
