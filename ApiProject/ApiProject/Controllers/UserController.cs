@@ -59,6 +59,20 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
+        [Route("update-user-role")]
+        [HttpPost]
+        public dynamic UpdateUserRole(User user)
+        {
+            try
+            {
+                var keyCreated = _userServices.UpdateUserRole(user);
+                return Ok(keyCreated);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
 
         [Route("update-user")]
         [HttpPut]

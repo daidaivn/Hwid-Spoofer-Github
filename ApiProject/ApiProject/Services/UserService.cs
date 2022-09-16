@@ -13,7 +13,28 @@ namespace ApiProject.Services
         }
         public IQueryable<dynamic> getAllUser()
         {
-            return _context.Users.Include(u => u.Roles);
+            var items = _context.Users.Include(u => u.Roles);
+            var output = from item in items
+                         select new
+                         {
+                             item.Name,
+                             item.UserId,
+                             item.Avatar,
+                             item.Email,
+                             item.Password,
+                             item.Address,
+                             item.Mobile,
+                             item.GenderId,
+                             item.Gender.GenderName,
+                             Roles = from r in item.Roles
+                                     select new
+                                     {
+                                         r.RoleId,
+                                         r.RoleName,
+                                         r.Status
+                                     }
+                         };
+            return output;
         }
         public dynamic CreateUser(User user)
         {
@@ -34,7 +55,7 @@ namespace ApiProject.Services
             return rl;
         }
 
-        public dynamic CreateUserRole(User user)
+        public dynamic UpdateUserRole(User user)
         {
             var obj = _context.Users.Where(x => x.UserId == user.UserId)
                 .Include(r => r.Roles)
@@ -58,7 +79,7 @@ namespace ApiProject.Services
                 {
                     var newRole = _context.Roles.Where(r => r.RoleId == rn.RoleId);
                     obj.Roles.Add(newRole.FirstOrDefault());
-                    
+
                 }
                 _context.Update(obj);
                 _context.SaveChanges();
@@ -69,6 +90,32 @@ namespace ApiProject.Services
                 return false;
             }
         }
+        public dynamic CreateUserRole(User user)
+        {
+
+            User rl = new User
+            {
+                Name = user.Name,
+                Avatar = user.Avatar,
+                Email = user.Email,
+                Password = user.Password,
+                Address = user.Address,
+                Mobile = user.Mobile,
+                GenderId = user.GenderId,
+                Status = true,
+            };
+            var roleIteam = user.Roles.ToList();
+            foreach (var rn in roleIteam)
+            {
+                var newRole = _context.Roles.Where(r => r.RoleId == rn.RoleId);
+                rl.Roles.Add(newRole.FirstOrDefault());
+
+            }
+            _context.Update(rl);
+            _context.SaveChanges();
+            return rl;
+        }
+    
 
         public dynamic UpdateUser(User user)
         {
