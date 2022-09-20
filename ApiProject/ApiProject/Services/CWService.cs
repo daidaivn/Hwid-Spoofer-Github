@@ -47,7 +47,11 @@ namespace ApiProject.Services
                 foreach (var lc in lcate)
                 {
                     var newlc = _context.Categories.Where(c => c.CategoryId == lc.CategoryId);
+//#pragma warning disable CS8602 // Dereference of a possibly null reference.
+//#pragma warning disable CS8604 // Possible null reference argument.
                     obj.Categories.Add(newlc.FirstOrDefault());
+//#pragma warning restore CS8604 // Possible null reference argument.
+//#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
                 }
                 _context.Update(obj);
