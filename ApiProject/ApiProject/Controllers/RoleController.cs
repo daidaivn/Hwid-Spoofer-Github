@@ -17,12 +17,12 @@ namespace ApiProject.Controllers
         }
 
         [Route("get-all")]
-        [HttpGet]
-        public dynamic getAllRole()
+        [HttpPost]
+        public dynamic getAllRole(int page)
         {
             try
             {
-                var data = _roleServices.getAllRole();
+                var data = _roleServices.getAllRole(page);
                 return Ok(data);
             }
             catch (Exception e)

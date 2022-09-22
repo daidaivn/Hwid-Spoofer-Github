@@ -1,5 +1,6 @@
 ﻿using ApiProject.IServices;
 using ApiProject.Models;
+using System.Runtime.CompilerServices;
 
 namespace ApiProject.Services
 {
@@ -10,19 +11,22 @@ namespace ApiProject.Services
         {
             _context = context;
         }
-        public IQueryable<dynamic> getAllRole()
+
+        public IQueryable<dynamic> getAllRole(int page)
         {
-            var items = _context.Roles;
-            var output = from item in items
-                         select new
-                         {
-                             item.RoleId,
-                             item.RoleName,
-                             item.Status,
-                         };
-            return output;
-            //return _context.Roles;
+            
+            var pageResults = 3f;
+            var pageCount = Math.Ceiling(_context.Roles.Count() / pageResults);
+            var role2s = _context.Roles.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
+
+            return role2s.Select(c => new { 
+                c.RoleId,
+                c.RoleName,
+                c.Status,
+            });
         }
+
+
         public dynamic CreateRole(Role role)
         {
             if (role.RoleName.Trim().Equals(""))
