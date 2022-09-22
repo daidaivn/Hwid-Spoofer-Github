@@ -1,5 +1,6 @@
 ﻿using ApiProject.IServices;
 using ApiProject.Models;
+using ApiProject.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ namespace ApiProject.Controllers
             _prioritizedServices = prioritizedServices;
         }
 
-        [Route("all-prioritized")]
+        [Route("get-all")]
         [HttpGet]
         public dynamic getAllPrioritized()
         {
@@ -29,7 +30,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("create-prioritized")]
+        [Route("create")]
         [HttpPost]
         public dynamic CreatePz(Prioritized prioritized)
         {
@@ -43,7 +44,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("update-prioritized")]
+        [Route("update")]
         [HttpPut]
         public dynamic UpdateRole(Prioritized prioritized)
         {
@@ -57,7 +58,21 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-prioritized-name")]
+        [Route("change-status")]
+        [HttpPost]
+        public dynamic ChangeStatus(Prioritized prioritized)
+        {
+            try
+            {
+                var result2 = _prioritizedServices.ChangeStatus(prioritized);
+                return Ok(result2);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("search-by-name")]
         [HttpPost]
         public dynamic SearchByRoleName(Prioritized prioritized)
         {
@@ -71,7 +86,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-role-id")]
+        [Route("search-by-id")]
         [HttpPost]
         public dynamic SearchByRoleID(Prioritized prioritized)
         {

@@ -15,7 +15,7 @@ namespace ApiProject.Controllers
             _genderServices = genderServices;
         }
 
-        [Route("all-gender")]
+        [Route("get-all")]
         [HttpGet]
         public dynamic getAllGender()
         {
@@ -29,7 +29,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("create-gender")]
+        [Route("create")]
         [HttpPost]
         public dynamic Create(Gender gender)
         {
@@ -43,7 +43,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("update-gender")]
+        [Route("update")]
         [HttpPut]
         public dynamic UpdateGender(Gender gender)
         {
@@ -57,7 +57,21 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-gender-name")]
+        [Route("change-status")]
+        [HttpPost]
+        public dynamic ChangeStatus(Gender gender)
+        {
+            try
+            {
+                var keyUpdate = _genderServices.ChangeStatus(gender);
+                return Ok(keyUpdate);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("search-by-name")]
         [HttpPost]
         public dynamic SearchByGenderName(Gender gender)
         {
@@ -71,7 +85,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-gender-id")]
+        [Route("search-byS-id")]
         [HttpPost]
         public dynamic SearchByGenderID(Gender gender)
         {

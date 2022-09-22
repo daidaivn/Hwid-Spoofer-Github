@@ -26,14 +26,14 @@ namespace ApiProject.Services
                              item.Mobile,
                              item.GenderId,
                              item.Gender.GenderName,
-                             item.Roles
-                             //Roles = from r in item.Roles
-                             //        select new
-                             //        {
-                             //            r.RoleId,
-                             //            r.RoleName,
-                             //            r.Status
-                             //        }
+                             //item.Roles
+                             Roles = from r in item.Roles
+                                     select new
+                                     {
+                                         r.RoleId,
+                                         r.RoleName,
+                                         r.Status
+                                     }
                          };
             return output;
         }

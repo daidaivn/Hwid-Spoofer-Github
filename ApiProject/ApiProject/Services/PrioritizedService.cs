@@ -16,13 +16,31 @@ namespace ApiProject.Services
 
         public IQueryable<dynamic> getAllPz()
         {
-            return _context.Prioritizeds;
+            var items = _context.Prioritizeds.Include(p=>p.Workings);
+            var output = from item in items
+                         select new
+                         {
+                             item.PrioritizedId,
+                             item.PrioritizedName,
+                             item.Status,
+                             //Workings = from w in item.Workings
+                             //           select new
+                             //           {
+                             //               w.WorkingId,
+                             //           }
+                         };
+            return output;
+            //return _context.Prioritizeds;
         }
         public dynamic CreatePz(Prioritized prioritized)
         {
+            if (prioritized.PrioritizedName.Trim().Equals(""))
+            {
+                return false;
+            }
             Prioritized rl = new Prioritized
             {
-                PrioritizedName = prioritized.PrioritizedName,
+                PrioritizedName = prioritized.PrioritizedName.Trim(),
                 Status = true,
             };
             _context.Prioritizeds.Add(rl);
@@ -32,16 +50,28 @@ namespace ApiProject.Services
         public dynamic UpdatePz(Prioritized prioritized)
         {
             var checkId = _context.Prioritizeds.FirstOrDefault(c => c.PrioritizedId == prioritized.PrioritizedId);
-            if (checkId == null)
+            if (checkId == null|| prioritized.PrioritizedName.Trim().Equals(""))
             {
                 return false;
             }
-            checkId.PrioritizedName = prioritized.PrioritizedName;
+            checkId.PrioritizedName = prioritized.PrioritizedName.Trim();
             checkId.Status = prioritized.Status;
             _context.Prioritizeds.Update(checkId);
             _context.SaveChanges();
             return checkId;
 
+        }
+        public dynamic ChangeStatus (Prioritized prioritized)
+        {
+            var checkId = _context.Prioritizeds.FirstOrDefault(c => c.PrioritizedId == prioritized.PrioritizedId);
+            if (checkId == null)
+            {
+                return false;
+            }
+            checkId.Status = !checkId.Status;
+            _context.Prioritizeds.Update(checkId);
+            _context.SaveChanges();
+            return checkId;
         }
         public IQueryable<dynamic> SearchByPzName(Prioritized prioritized)
         {

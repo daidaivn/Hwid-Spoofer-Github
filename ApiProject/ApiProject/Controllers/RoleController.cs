@@ -1,5 +1,6 @@
 ﻿using ApiProject.IServices;
 using ApiProject.Models;
+using ApiProject.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ namespace ApiProject.Controllers
             _roleServices = roleServices;
         }
 
-        [Route("all-role")]
+        [Route("get-all")]
         [HttpGet]
         public dynamic getAllRole()
         {
@@ -29,7 +30,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("create-role")]
+        [Route("create")]
         [HttpPost]
         public dynamic Create(Role role)
         {
@@ -43,7 +44,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("update-role")]
+        [Route("update")]
         [HttpPut]
         public dynamic UpdateRole(Role role)
         {
@@ -57,7 +58,21 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-role-name")]
+        [Route("change-status")]
+        [HttpPost]
+        public dynamic ChangeStatus(Role role)
+        {
+            try
+            {
+                var result2 = _roleServices.ChangeStatus(role);
+                return Ok(result2);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("search-by-name")]
         [HttpPost]
         public dynamic SearchByRoleName(Role role)
         {
@@ -71,7 +86,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-role-id")]
+        [Route("search-by-id")]
         [HttpPost]
         public dynamic SearchByRoleID(Role role)
         {

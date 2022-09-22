@@ -28,6 +28,7 @@ namespace ApiProject.Services
         {
             var obj = _context.Workings.Where(x => x.WorkingId == working.WorkingId)
                 .Include(c => c.Categories)
+                .Include(u=>u.Users)
                 .FirstOrDefault(w => w.WorkingId == working.WorkingId);
 
             if (obj != null)
@@ -38,6 +39,16 @@ namespace ApiProject.Services
                     foreach (var cate in cates)
                     {
                         obj.Categories.Remove(cate);
+                    }
+                    _context.Update(obj);
+                    _context.SaveChanges();
+                }
+                if (obj.Users != null)
+                {
+                    var users = _context.Users.ToList();
+                    foreach (var user in users)
+                    {
+                        obj.Users.Remove(user);
                     }
                     _context.Update(obj);
                     _context.SaveChanges();
@@ -56,6 +67,14 @@ namespace ApiProject.Services
                 }
                 _context.Update(obj);
                 _context.SaveChanges();
+                var lusers = working.Users.ToList();    
+                foreach (var lu in lusers)
+                {
+                    var newuser = _context.Users.Where(u=>u.UserId == lu.UserId);
+                    obj.Users.Add(newuser.FirstOrDefault());
+                }
+                _context.Update(obj);
+                _context.SaveChanges();
                 return obj;
             }
             else
@@ -65,11 +84,14 @@ namespace ApiProject.Services
         }
         public dynamic CreateCW(Working working)
         {
-
+            if( working.WorkingName.Trim().Equals(""))
+            {
+                return false;
+            }
             Working newCW = new Working()
             { 
                 //WorkingId = working.WorkingId,
-                WorkingName = working.WorkingName,
+                WorkingName = working.WorkingName.Trim(),
                 DateCreate = working.DateCreate,
                 Deadline = working.Deadline,
                 WorkingStatusId = working.WorkingStatusId,
