@@ -12,6 +12,7 @@ namespace ApiProject.Models
 
         public int WorkingStatusId { get; set; }
         public string? WorkingStatusName { get; set; }
+        public bool? Status { get; set; }
 
         public virtual ICollection<Working> Workings { get; set; }
     }

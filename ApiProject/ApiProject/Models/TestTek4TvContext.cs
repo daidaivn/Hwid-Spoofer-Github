@@ -29,7 +29,7 @@ namespace ApiProject.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-O9PCQDU\\SQLEXPRESS;Database=TestTek4Tv;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=LAPTOP-RIDQL5T7\\SQLEXPRESS;Database=TestTek4Tv;Trusted_Connection=True;");
             }
         }
 
@@ -124,26 +124,24 @@ namespace ApiProject.Models
             {
                 entity.ToTable("Working");
 
-                entity.Property(e => e.WorkingId).ValueGeneratedNever();
-
                 entity.Property(e => e.DateCreate).HasColumnType("date");
 
                 entity.Property(e => e.Deadline).HasColumnType("date");
 
                 entity.Property(e => e.Description).HasMaxLength(500);
 
+                entity.Property(e => e.UserConfirm).HasMaxLength(50);
+
                 entity.Property(e => e.WorkingName).HasMaxLength(500);
 
                 entity.HasOne(d => d.Prioritized)
                     .WithMany(p => p.Workings)
                     .HasForeignKey(d => d.PrioritizedId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_WorkAndUser_Prioritized");
 
                 entity.HasOne(d => d.WorkingStatus)
                     .WithMany(p => p.Workings)
                     .HasForeignKey(d => d.WorkingStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_WorkAndUser_WorkingStatus");
             });
 

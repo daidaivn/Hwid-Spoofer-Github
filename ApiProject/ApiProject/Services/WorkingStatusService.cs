@@ -34,21 +34,46 @@ namespace ApiProject.Services
             }
             else
             {
-                checkId.WorkingStatusId = workingStatus.WorkingStatusId;
                 checkId.WorkingStatusName = workingStatus.WorkingStatusName;
                 _context.WorkingStatuses.Update(checkId);
                 _context.SaveChanges();
                 return checkId;
             }
         }
+
+        public dynamic ChangeStatus(WorkingStatus workingStatus)
+        {
+            var checkId = _context.WorkingStatuses.FirstOrDefault(c => c.WorkingStatusId == workingStatus.WorkingStatusId);
+            if (checkId == null)
+            {
+                return false;
+            }
+            else
+            {
+                checkId.WorkingStatusName = workingStatus.WorkingStatusName;
+                _context.WorkingStatuses.Update(checkId);
+                _context.SaveChanges();
+                return checkId;
+            }
+        }
+
+
         public IQueryable<dynamic> SearchByWorkingStatusName(WorkingStatus workingStatus)
         {
             var keyword = _context.WorkingStatuses.Where(c => c.WorkingStatusName.Contains(workingStatus.WorkingStatusName));
+            if(keyword == null)
+            {
+                return null;
+            }
             return keyword.ToList().AsQueryable();
         }
         public dynamic SearchByWorkingStatusId(WorkingStatus workingStatus)
         {
             var keyword = _context.WorkingStatuses.FirstOrDefault(c => c.WorkingStatusId == workingStatus.WorkingStatusId);
+            if(keyword == null)
+            {
+                return false;
+            }
             return keyword;
         }
     }
