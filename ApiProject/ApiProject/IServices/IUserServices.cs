@@ -13,5 +13,6 @@ namespace ApiProject.IServices
         dynamic UpdateUser(User user);
         IQueryable<dynamic> SearchByName(User user);
         dynamic SearchUserById(User user);
+        dynamic ChangeStatus(User user);
     }
 }

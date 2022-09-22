@@ -14,7 +14,7 @@ namespace ApiProject.Controllers
         {
             _uwservice = uwservice;
         }
-        [Route("getall-uw")]
+        [Route("getall")]
         [HttpGet]
         public dynamic GetAllUW()
         {
@@ -28,7 +28,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("update-uw")]
+        [Route("update")]
         [HttpPut]
         public dynamic UpdateUW(Working working)
         {
@@ -42,7 +42,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("creat-uw")]
+        [Route("creat")]
         [HttpPost]
         public dynamic CreateUW(Working working)
         {

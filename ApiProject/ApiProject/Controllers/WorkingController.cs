@@ -15,7 +15,7 @@ namespace ApiProject.Controllers
             _workingServices = workingServices;
         }
 
-        [Route("all-working")]
+        [Route("get-all")]
         [HttpGet]
         public dynamic getAllWorking()
         {
@@ -29,7 +29,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("create-working")]
+        [Route("create")]
         [HttpPost]
         public dynamic Create(Working working)
         {
@@ -43,7 +43,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("update-working")]
+        [Route("update")]
         [HttpPut]
         public dynamic UpdateWorking(Working working)
         {
@@ -57,7 +57,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-working-name")]
+        [Route("search-by-name")]
         [HttpPost]
         public dynamic SearchByWorkingName(Working working)
         {
@@ -71,7 +71,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-working-id")]
+        [Route("search-by-id")]
         [HttpPost]
         public dynamic SearchByWorkingID(Working working)
         {

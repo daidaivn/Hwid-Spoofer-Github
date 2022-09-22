@@ -61,7 +61,10 @@ namespace ApiProject.Services
         }
         public dynamic CreateUW(Working working)
         {
-
+            if (working.WorkingName.Trim().Equals(""))
+            {
+                return false;
+            }
             Working newUW = new Working()
             { 
                 WorkingName = working.WorkingName,

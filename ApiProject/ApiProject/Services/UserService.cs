@@ -93,7 +93,10 @@ namespace ApiProject.Services
         }
         public dynamic CreateUserRole(User user)
         {
-
+            if (user.Name.Trim().Equals(""))
+            {
+                return false;
+            }
             User rl = new User
             {
                 Name = user.Name,
@@ -121,7 +124,7 @@ namespace ApiProject.Services
         public dynamic UpdateUser(User user)
         {
             var checkId = _context.Users.FirstOrDefault(c => c.UserId == user.UserId);
-            if (checkId == null)
+            if (checkId == null || user.Name.Trim().Equals(""))
             {
                 return false;
             }
@@ -133,7 +136,7 @@ namespace ApiProject.Services
         }
         public IQueryable<dynamic> SearchByName(User user)
         {
-            var keyword = _context.Users.Where(c => c.Name.Contains(user.Name));
+            var keyword = _context.Users.Where(c => c.Name.Contains(user.Name.Trim()));
             return keyword.ToList().AsQueryable();
         }
         public dynamic SearchUserById(User user)
@@ -141,11 +144,21 @@ namespace ApiProject.Services
             var pzById = _context.Users.FirstOrDefault(c => c.UserId == user.UserId);
             return pzById;
         }
-    }
 
-    public class UserRole
-    {
-        public int UserId { get; set; }
-        public List<Role> Roles { get; set; } = new List<Role>();
+        public dynamic ChangeStatus(User user)
+        {
+            var checkId = _context.Users.FirstOrDefault(c => c.UserId == user.UserId);
+            if (checkId == null)
+            {
+                return false;
+            }
+            else
+            {
+                checkId.Status = !checkId.Status;
+                _context.Users.Update(checkId);
+                _context.SaveChanges();
+                return checkId;
+            }
+        }
     }
 }

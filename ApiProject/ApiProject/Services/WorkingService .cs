@@ -31,7 +31,10 @@ namespace ApiProject.Services
         }
         public dynamic CreateWorking(Working working)
         {
-
+            if (working.WorkingName.Trim().Equals(""))
+            {
+                return false;
+            }
             var nwork = new Working
             {
                 //WorkingId = working.WorkingId,
@@ -50,7 +53,7 @@ namespace ApiProject.Services
         public dynamic UpdateWorking(Working working)
         {
             var checkId = _context.Workings.FirstOrDefault(c => c.WorkingId == working.WorkingId);
-            if (checkId == null)
+            if (checkId == null || working.WorkingName.Trim().Equals(""))
             {
                 return false;
             }
@@ -68,7 +71,7 @@ namespace ApiProject.Services
         }
         public IQueryable<dynamic> SearchByWorkingName(Working working)
         {
-            var keyword = _context.Workings.Where(c => c.WorkingName.Contains(working.WorkingName));
+            var keyword = _context.Workings.Where(c => c.WorkingName.Contains(working.WorkingName.Trim()));
             return keyword.ToList().AsQueryable();
         }
         public dynamic SearchWorkingById(Working working)

@@ -116,5 +116,20 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
+
+        [Route("change-status")]
+        [HttpPost]
+        public dynamic ChangeStatus(User user)
+        {
+            try
+            {
+                var data1 = _userServices.ChangeStatus(user);
+                return Ok(data1);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
     }
 }

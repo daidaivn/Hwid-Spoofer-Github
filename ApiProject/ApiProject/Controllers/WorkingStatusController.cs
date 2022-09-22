@@ -14,7 +14,7 @@ namespace ApiProject.Controllers
             _workingStatusService = workingStatusService;
         }
 
-        [Route("get-all-working-status")]
+        [Route("get-all")]
         [HttpGet]
         public dynamic getAllWorkingStatus()
         {
@@ -28,7 +28,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("creat-working-status")]
+        [Route("creat")]
         [HttpPost]
         public dynamic Create(WorkingStatus workingStatus)
         {
@@ -42,7 +42,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("update-working-status")]
+        [Route("update")]
         [HttpPut]
         public dynamic UpdateWorkingStatus(WorkingStatus workingStatus)
         {
@@ -56,7 +56,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-working-status-name")]
+        [Route("search-by-name")]
         [HttpPost]
         public dynamic SearchByWorkingStatusName(WorkingStatus workingStatus)
         {
@@ -70,7 +70,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-working-status-id")]
+        [Route("search-by-id")]
         [HttpPost]
         public dynamic SearchByWorkingStatusId(WorkingStatus workingStatus)
         {
@@ -78,6 +78,20 @@ namespace ApiProject.Controllers
             {
                 var result2 = _workingStatusService.SearchByWorkingStatusId(workingStatus);
                 return Ok(result2);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("change-status")]
+        [HttpPut]
+        public dynamic ChangeStatus(WorkingStatus workingStatus)
+        {
+            try
+            {
+                var status = _workingStatusService.ChangeStatus(workingStatus);
+                return Ok(status);
             }
             catch (Exception e)
             {

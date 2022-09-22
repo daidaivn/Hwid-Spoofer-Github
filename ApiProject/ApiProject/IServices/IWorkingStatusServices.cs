@@ -9,5 +9,6 @@ namespace ApiProject.IServices
         public dynamic UpdateWorkingStatus(WorkingStatus workingStatus);
         public IQueryable<dynamic> SearchByWorkingStatusName(WorkingStatus workingStatus);
         public dynamic SearchByWorkingStatusId(WorkingStatus workingStatus);
+        dynamic ChangeStatus(WorkingStatus workingStatus);
     }
 }
