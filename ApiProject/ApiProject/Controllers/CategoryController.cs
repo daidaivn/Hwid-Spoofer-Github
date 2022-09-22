@@ -15,7 +15,14 @@ namespace ApiProject.Controllers
         {
             _categoryService = categoryService;
         }
-        
+        [Route("get")]
+        [HttpGet]
+        public dynamic getcat(int page)
+        {
+            var data = _categoryService.getcat(page);
+            return data;
+        }
+
         [Route("get-all")]
         [HttpGet]
         public dynamic getAllCategory()

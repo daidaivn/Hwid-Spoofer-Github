@@ -57,6 +57,34 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
+        [Route("create-connect")]
+        [HttpPost]
+        public dynamic CreateConnect(Working working)
+        {
+            try
+            {
+                var keyCreated = _workingServices.CreateConnect(working);
+                return Ok(keyCreated);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("update-connect")]
+        [HttpPut]
+        public dynamic UpdateConnect(Working working)
+        {
+            try
+            {
+                var keyUpdate = _workingServices.UpdateConnect(working);
+                return Ok(keyUpdate);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
         [Route("search-by-name")]
         [HttpPost]
         public dynamic SearchByWorkingName(Working working)
