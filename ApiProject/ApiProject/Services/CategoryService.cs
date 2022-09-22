@@ -37,7 +37,7 @@ namespace ApiProject.Services
             {
                 checkId.CategoryId = category.CategoryId;
                 checkId.CategoryName = category.CategoryName;
-                //checkId.Status = category.Status;
+                checkId.Status = category.Status;
                 _context.Categories.Update(checkId);
                 _context.SaveChanges();
                 return checkId;
