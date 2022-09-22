@@ -63,7 +63,7 @@ namespace ApiProject.Services
         {
 
             Working newUW = new Working()
-            {
+            { 
                 WorkingName = working.WorkingName,
                 DateCreate = working.DateCreate,
                 Deadline = working.Deadline,
