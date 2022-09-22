@@ -12,13 +12,26 @@ namespace ApiProject.Services
         }
         public IQueryable<dynamic> getAllRole()
         {
-            return _context.Roles;
+            var items = _context.Roles;
+            var output = from item in items
+                         select new
+                         {
+                             item.RoleId,
+                             item.RoleName,
+                             item.Status,
+                         };
+            return output;
+            //return _context.Roles;
         }
         public dynamic CreateRole(Role role)
         {
+            if (role.RoleName.Trim().Equals(""))
+            {
+                return false;
+            }
             Role rl = new Role
             {
-                RoleName = role.RoleName,
+                RoleName = role.RoleName.Trim(),
                 Status = true,
             };
             _context.Roles.Add(rl);
@@ -28,19 +41,31 @@ namespace ApiProject.Services
         public dynamic UpdateRole(Role role)
         {
             var checkId = _context.Roles.FirstOrDefault(c => c.RoleId == role.RoleId);
-            if (checkId == null)
+            if (checkId == null || role.RoleName.Trim().Equals(""))
             {
                 return false;
             }
-            checkId.RoleName = role.RoleName;
+            checkId.RoleName = role.RoleName.Trim();
             _context.Roles.Update(checkId);
             _context.SaveChanges();
             return checkId;
 
         }
+        public dynamic ChangeStatus (Role role)
+        {
+            var checkId = _context.Roles.FirstOrDefault(c => c.RoleId == role.RoleId);
+            if (checkId == null)
+            {
+                return false;
+            }
+            checkId.Status =! checkId.Status;
+            _context.Roles.Update(checkId);
+            _context.SaveChanges();
+            return checkId;
+        }
         public IQueryable<dynamic> SearchByRoleName(Role role)
         {
-            var keyword = _context.Roles.Where(c => c.RoleName.Contains(role.RoleName));
+            var keyword = _context.Roles.Where(c => c.RoleName.Contains(role.RoleName.Trim()));
             return keyword.ToList().AsQueryable();
         }
         public dynamic SearchRoleById(Role role)

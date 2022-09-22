@@ -16,7 +16,7 @@ namespace ApiProject.Controllers
             _categoryService = categoryService;
         }
         
-        [Route("get-all-category")]
+        [Route("get-all")]
         [HttpGet]
         public dynamic getAllCategory()
         {
@@ -30,7 +30,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("creat-category")]
+        [Route("create")]
         [HttpPost]
         public dynamic Create(Category category)
         {
@@ -44,7 +44,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("update-category")]
+        [Route("update")]
         [HttpPut]
         public dynamic UpdateCategory(Category category)
         {
@@ -58,7 +58,21 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-by-category-name")]
+        [Route("change-status")]
+        [HttpPost]
+        public dynamic ChangeStatus(Category category)
+        {
+            try
+            {
+                var result2 = _categoryService.ChangeStatus(category);
+                return Ok(result2);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("search-by-name")]
         [HttpPost]
         public dynamic SearchByCategoryName(Category category)
         {
@@ -72,27 +86,13 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("search-by-category-id")]
+        [Route("search-by-id")]
         [HttpPost]
         public dynamic SearchByCategoryId(Category category)
         {
             try
             {
                 var result2 = _categoryService.SearchByCategoryId(category);
-                return Ok(result2);
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-        }
-        [Route("delete-category")]
-        [HttpPost]
-        public dynamic DeleteCategory(Category category)
-        {
-            try
-            {
-                var result2 = _categoryService.DeleteCategory(category);
                 return Ok(result2);
             }
             catch (Exception e)

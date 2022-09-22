@@ -19,9 +19,13 @@ namespace ApiProject.Services
         }
         public dynamic CreateGender(Gender gender)
         {
+            if (gender.GenderName.Trim().Equals(""))
+            {
+                return false;
+            }
             Gender rl = new Gender
             {
-                GenderName = gender.GenderName,
+                GenderName = gender.GenderName.Trim(),
                 Status = true,
             };
             _context.Genders.Add(rl);
@@ -31,11 +35,24 @@ namespace ApiProject.Services
         public dynamic UpdateGender(Gender gender)
         {
             var checkId = _context.Genders.FirstOrDefault(c => c.GenderId == gender.GenderId);
+            if (checkId == null || gender.GenderName.Trim().Equals(""))
+            {
+                return false;
+            }
+            checkId.GenderName = gender.GenderName.Trim();
+            _context.Genders.Update(checkId);
+            _context.SaveChanges();
+            return checkId;
+        }
+
+        public dynamic ChangeStatus (Gender gender)
+        {
+            var checkId = _context.Genders.FirstOrDefault(c => c.GenderId == gender.GenderId);
             if (checkId == null)
             {
                 return false;
             }
-            checkId.GenderName = gender.GenderName;
+            checkId.Status =! checkId.Status;
             _context.Genders.Update(checkId);
             _context.SaveChanges();
             return checkId;

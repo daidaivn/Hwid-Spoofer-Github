@@ -9,7 +9,7 @@ namespace ApiProject.IServices
         public IQueryable<dynamic> SearchByCategoryName(Category category);
         public dynamic SearchByCategoryId(Category category);
         public dynamic CreateCategory(Category category);
-        public dynamic DeleteCategory(Category category);
+        public dynamic ChangeStatus(Category category);
 
     }
 }

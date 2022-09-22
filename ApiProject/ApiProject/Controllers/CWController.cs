@@ -14,7 +14,7 @@ namespace ApiProject.Controllers
         {
             _cwservice = cwservice;
         }
-        [Route("getall-cw")]
+        [Route("get-all")]
         [HttpGet]
         public dynamic GetAllCW()
         {
@@ -28,21 +28,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("update-cw")]
-        [HttpPut]
-        public dynamic UpdateCW(Working working)
-        {
-            try
-            {
-                var data = _cwservice.UpdateCW(working);
-                return data;
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-        }
-        [Route("creat-cw")]
+        [Route("create")]
         [HttpPost]
         public dynamic CreateCW(Working working)
         {
@@ -56,5 +42,19 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
+        [Route("update")]
+        [HttpPut]
+        public dynamic UpdateCW(Working working)
+        {
+            try
+            {
+                var data = _cwservice.UpdateCW(working);
+                return data;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }  
     }
 }

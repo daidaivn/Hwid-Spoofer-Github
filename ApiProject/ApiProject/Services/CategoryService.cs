@@ -13,13 +13,25 @@ namespace ApiProject.Services
         }
         public IQueryable<dynamic> getAllCategory()
         {
-            return _context.Categories;
+            var items = _context.Categories;
+            var output = from item in items
+                         select new
+                         {
+                             item.CategoryId,
+                             item.CategoryName,
+                             item.Status,
+                         };
+            return output;
         }
         public dynamic CreateCategory(Category category)
         {
+            if (category.CategoryName.Trim().Equals(""))
+            {
+                return false;
+            }
             Category newcategory = new Category
             {
-                CategoryName = category.CategoryName,
+                CategoryName = category.CategoryName.Trim(),
                 Status = true,
             };
             _context.Categories.Add(newcategory);
@@ -29,14 +41,14 @@ namespace ApiProject.Services
         public dynamic UpdateCategory(Category category)
         {
             var checkId = _context.Categories.FirstOrDefault(c => c.CategoryId == category.CategoryId);
-            if (checkId == null)
+            if (checkId == null ||category.CategoryName.Trim().Equals(""))
             {
                 return false;
             }
             else
             {
                 checkId.CategoryId = category.CategoryId;
-                checkId.CategoryName = category.CategoryName;
+                checkId.CategoryName = category.CategoryName.Trim();
                 checkId.Status = category.Status;
                 _context.Categories.Update(checkId);
                 _context.SaveChanges();
@@ -44,7 +56,7 @@ namespace ApiProject.Services
             }
         }
         // Change Status
-        public dynamic DeleteCategory(Category category)
+        public dynamic ChangeStatus(Category category)
         {
             var checkId = _context.Categories.FirstOrDefault(c => c.CategoryId == category.CategoryId);
             if (checkId == null)
@@ -54,7 +66,7 @@ namespace ApiProject.Services
             else
             {
               
-                checkId.Status = false;
+                checkId.Status =! checkId.Status;
                 _context.Categories.Update(checkId);
                 _context.SaveChanges();
                 return checkId;
