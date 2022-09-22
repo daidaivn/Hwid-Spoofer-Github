@@ -7,6 +7,7 @@ namespace ApiProject.Models
     {
         public User()
         {
+            Comments = new HashSet<Comment>();
             Roles = new HashSet<Role>();
             Workings = new HashSet<Working>();
         }
@@ -23,6 +24,7 @@ namespace ApiProject.Models
 
         public virtual Gender? Gender { get; set; }
 
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
         public virtual ICollection<Working> Workings { get; set; }
     }

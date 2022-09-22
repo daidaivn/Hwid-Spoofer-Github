@@ -17,6 +17,7 @@ namespace ApiProject.Models
         }
 
         public virtual DbSet<Category> Categories { get; set; } = null!;
+        public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<Gender> Genders { get; set; } = null!;
         public virtual DbSet<Prioritized> Prioritizeds { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
@@ -29,7 +30,7 @@ namespace ApiProject.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-O9PCQDU\\SQLEXPRESS;Database=TestTek4Tv;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=LAPTOP-RIDQL5T7\\SQLEXPRESS;Database=TestTek4Tv;Trusted_Connection=True;");
             }
         }
 
@@ -53,6 +54,13 @@ namespace ApiProject.Models
 
                             j.ToTable("CategoryWork");
                         });
+            });
+
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.ToTable("Comment");
+
+                entity.Property(e => e.Comment1).HasColumnName("Comment");
             });
 
             modelBuilder.Entity<Gender>(entity =>
@@ -106,6 +114,19 @@ namespace ApiProject.Models
                     .HasForeignKey(d => d.GenderId)
                     .HasConstraintName("FK_User_Gender");
 
+                entity.HasMany(d => d.Comments)
+                    .WithMany(p => p.Users)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "UserComment",
+                        l => l.HasOne<Comment>().WithMany().HasForeignKey("CommentId").HasConstraintName("FK_UserComment_Comment"),
+                        r => r.HasOne<User>().WithMany().HasForeignKey("UserId").HasConstraintName("FK_UserComment_User"),
+                        j =>
+                        {
+                            j.HasKey("UserId", "CommentId");
+
+                            j.ToTable("UserComment");
+                        });
+
                 entity.HasMany(d => d.Workings)
                     .WithMany(p => p.Users)
                     .UsingEntity<Dictionary<string, object>>(
@@ -143,6 +164,19 @@ namespace ApiProject.Models
                     .WithMany(p => p.Workings)
                     .HasForeignKey(d => d.WorkingStatusId)
                     .HasConstraintName("FK_WorkAndUser_WorkingStatus");
+
+                entity.HasMany(d => d.Comments)
+                    .WithMany(p => p.Workings)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "CommentWorking",
+                        l => l.HasOne<Comment>().WithMany().HasForeignKey("CommentId").HasConstraintName("FK_CommentWorking_Comment"),
+                        r => r.HasOne<Working>().WithMany().HasForeignKey("WorkingId").HasConstraintName("FK_CommentWorking_Working"),
+                        j =>
+                        {
+                            j.HasKey("WorkingId", "CommentId");
+
+                            j.ToTable("CommentWorking");
+                        });
             });
 
             modelBuilder.Entity<WorkingStatus>(entity =>

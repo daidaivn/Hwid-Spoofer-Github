@@ -8,6 +8,7 @@ namespace ApiProject.Models
         public Working()
         {
             Categories = new HashSet<Category>();
+            Comments = new HashSet<Comment>();
             Users = new HashSet<User>();
         }
 
@@ -24,6 +25,7 @@ namespace ApiProject.Models
         public virtual WorkingStatus? WorkingStatus { get; set; }
 
         public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 }
