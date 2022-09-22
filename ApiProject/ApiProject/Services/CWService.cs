@@ -67,15 +67,18 @@ namespace ApiProject.Services
         {
 
             Working newCW = new Working()
-            {
+            { 
+                //WorkingId = working.WorkingId,
                 WorkingName = working.WorkingName,
-                WorkingStatus = working.WorkingStatus,
                 DateCreate = working.DateCreate,
                 Deadline = working.Deadline,
+                WorkingStatusId = working.WorkingStatusId,
                 PrioritizedId = working.PrioritizedId,
                 UserConfirm = working.UserConfirm,
                 Description = working.Description
             };
+            _context.Workings.Add(newCW);
+            _context.SaveChanges();
             var lcate = working.Categories.ToList();
             foreach (var lc in lcate)
             {

@@ -23,6 +23,7 @@ namespace ApiProject.Services
             Prioritized rl = new Prioritized
             {
                 PrioritizedName = prioritized.PrioritizedName,
+                Status = true,
             };
             _context.Prioritizeds.Add(rl);
             _context.SaveChanges();
@@ -36,6 +37,7 @@ namespace ApiProject.Services
                 return false;
             }
             checkId.PrioritizedName = prioritized.PrioritizedName;
+            checkId.Status = prioritized.Status;
             _context.Prioritizeds.Update(checkId);
             _context.SaveChanges();
             return checkId;

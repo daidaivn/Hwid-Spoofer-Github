@@ -1,5 +1,6 @@
 ﻿using ApiProject.IServices;
 using ApiProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject.Services
 {
@@ -12,7 +13,7 @@ namespace ApiProject.Services
         }
         public IQueryable<dynamic> getAllWorking()
         {
-            var items = _context.Workings;
+            var items = _context.Workings.Include(w1=>w1.Categories).Include(w2=>w2.Users);
             var output = from item in items
                          select new
                          {
@@ -20,6 +21,7 @@ namespace ApiProject.Services
                              item.WorkingName,
                              item.DateCreate,
                              item.Deadline,
+                             item.WorkingStatus,
                              item.Prioritized,
                              item.Categories,
                              item.UserConfirm,
@@ -30,16 +32,16 @@ namespace ApiProject.Services
         public dynamic CreateWorking(Working working)
         {
 
-            Working nwork = new Working
+            var nwork = new Working
             {
+                //WorkingId = working.WorkingId,
                 WorkingName = working.WorkingName,
                 DateCreate = working.DateCreate,
                 Deadline = working.Deadline,
-                Prioritized = working.Prioritized,
-                Categories = working.Categories,
-                UserConfirm = working.UserConfirm,
-                Description = working.Description,
                 WorkingStatusId = working.WorkingStatusId,
+                PrioritizedId = working.PrioritizedId,
+                UserConfirm = working.UserConfirm,
+                Description = working.Description,   
             };
             _context.Workings.Add(nwork);
             _context.SaveChanges();
@@ -55,12 +57,10 @@ namespace ApiProject.Services
             checkId.WorkingName = working.WorkingName;
             checkId.DateCreate = working.DateCreate;
             checkId.Deadline = working.Deadline;
-            checkId.Prioritized = working.Prioritized;
-            checkId.Categories = working.Categories;
+            checkId.WorkingStatusId = working.WorkingStatusId;
+            checkId.PrioritizedId = working.PrioritizedId;
             checkId.UserConfirm = working.UserConfirm;
             checkId.Description = working.Description;
-            checkId.WorkingStatusId = working.WorkingStatusId;
-
             _context.Workings.Update(checkId);
             _context.SaveChanges();
             return checkId;

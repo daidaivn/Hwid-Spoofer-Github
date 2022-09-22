@@ -65,13 +65,15 @@ namespace ApiProject.Services
             Working newUW = new Working()
             {
                 WorkingName = working.WorkingName,
-                WorkingStatus = working.WorkingStatus,
                 DateCreate = working.DateCreate,
                 Deadline = working.Deadline,
+                WorkingStatusId = working.WorkingStatusId,
                 PrioritizedId = working.PrioritizedId,
                 UserConfirm = working.UserConfirm,
                 Description = working.Description
             };
+            _context.Workings.Add(newUW);
+            _context.SaveChanges();
             var lusers = working.Users.ToList();
             foreach (var luser in lusers)
             {

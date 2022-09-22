@@ -20,8 +20,8 @@ namespace ApiProject.Models
         public int? UserConfirm { get; set; }
         public string? Description { get; set; }
 
-        public virtual Prioritized Prioritized { get; set; } = null!;
-        public virtual WorkingStatus WorkingStatus { get; set; } = null!;
+        public virtual Prioritized? Prioritized { get; set; } = null!;
+        public virtual WorkingStatus? WorkingStatus { get; set; } = null!;
 
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<User> Users { get; set; }
