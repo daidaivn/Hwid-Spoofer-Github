@@ -30,11 +30,11 @@ internal class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
         builder.Services.AddScoped<ICategoryService, CategoryService>();
-        builder.Services.AddScoped<ICWService, CWService>();
+        //builder.Services.AddScoped<ICWService, CWService>();
         builder.Services.AddScoped<IGenderServices, GenderService>();
         builder.Services.AddScoped<IPrioritizedServices, PrioritizedService>();
         builder.Services.AddScoped<IRoleServices, RoleService>();
-        builder.Services.AddScoped<IUWService, UWService>();
+       // builder.Services.AddScoped<IUWService, UWService>();
         builder.Services.AddScoped<IUserServices, UserService>();
         builder.Services.AddScoped<IWorkingServices,WorkingService>();
         builder.Services.AddScoped<IWorkingStatusService, WorkingStatusService>();
