@@ -17,12 +17,27 @@ namespace ApiProject.Controllers
         }
 
         [Route("get-all")]
+        [HttpGet]
+        public dynamic getAllRole()
+        {
+            try
+            {
+                var data = _roleServices.getAllRole();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        [Route("paging")]
         [HttpPost]
         public dynamic getAllRole(int page)
         {
             try
             {
-                var data = _roleServices.getAllRole(page);
+                var data = _roleServices.pagingRole(page);
                 return Ok(data);
             }
             catch (Exception e)
