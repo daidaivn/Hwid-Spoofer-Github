@@ -1,6 +1,8 @@
 ﻿
 using ApiProject.Models;
 using ApiProject.IServices;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject.Services
 {
@@ -11,19 +13,19 @@ namespace ApiProject.Services
         {
             _context = context;
         }
-        public dynamic getcat(int page=1)
+        public dynamic GetCurrentPage (int page)
         {
             var pageRes = 2f;
-            var pageCount = Math.Ceiling(_context.Categories.Count()/pageRes);
-
             var categories = _context.Categories.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
-            //var output = new CategoryRes
-            //{
-            //    Categories = categories,
-            //    CurrentPage = page,
-            //    Pages = (int)pageCount
-            //};
-            return categories;
+            var pageCount = Math.Ceiling(_context.Categories.Count()/pageRes);
+            var output = categories.Select(c => new
+            {
+                c.CategoryId,
+                c.CategoryName,
+                c.Status,
+                pageCount,
+            });
+            return output;
         }
         public IQueryable<dynamic> getAllCategory()
         {
@@ -87,15 +89,26 @@ namespace ApiProject.Services
             }
         }
 
-        public IQueryable<dynamic> SearchByCategoryName(Category category)
+        public dynamic SearchByCategoryName(Category category,int page)
         {
             var keyword = _context.Categories.Where(c => c.CategoryName.Contains(category.CategoryName));
-            return keyword.ToList().AsQueryable();
+            var pageRes = 2f;
+            var categories = keyword.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
+            var pageCount = Math.Ceiling(keyword.Count() / pageRes);
+            var output = categories.Select(c => new
+            {
+                c.CategoryId,
+                c.CategoryName,
+                c.Status,
+                pageCount,
+            });
+            return output;
+            //return keyword.ToList().AsQueryable();
         }
-        public dynamic SearchByCategoryId(Category category)
+        public dynamic SearchByCategoryId (Category category,int page)
         {
-            var keyword = _context.Categories.FirstOrDefault(c => c.CategoryId == category.CategoryId);
-            return keyword;
+            var checkId = _context.Categories.Include(c=>c.Workings).FirstOrDefault(c => c.CategoryId == category.CategoryId);
+            return checkId;
         }
     }
 

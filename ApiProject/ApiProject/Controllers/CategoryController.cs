@@ -17,10 +17,17 @@ namespace ApiProject.Controllers
         }
         [Route("get")]
         [HttpGet]
-        public dynamic getcat(int page)
+        public dynamic GetCurrentPage(int page)
         {
-            var data = _categoryService.getcat(page);
-            return data;
+            try
+            {
+                var data = _categoryService.GetCurrentPage(page);
+                return data;
+            }catch(Exception e)
+            {
+                return e.Message;
+            }
+            
         }
 
         [Route("get-all")]
@@ -43,8 +50,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var Created = _categoryService.CreateCategory(category);
-                return Ok(Created);
+                var data = _categoryService.CreateCategory(category);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -57,8 +64,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var Updated = _categoryService.UpdateCategory(category);
-                return Ok(Updated);
+                var data = _categoryService.UpdateCategory(category);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -71,8 +78,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var result2 = _categoryService.ChangeStatus(category);
-                return Ok(result2);
+                var data = _categoryService.ChangeStatus(category);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -81,12 +88,12 @@ namespace ApiProject.Controllers
         }
         [Route("search-by-name")]
         [HttpPost]
-        public dynamic SearchByCategoryName(Category category)
+        public dynamic SearchByCategoryName(Category category, int page)
         {
             try
             {
-                var result1 = _categoryService.SearchByCategoryName(category);
-                return Ok(result1);
+                var data = _categoryService.SearchByCategoryName(category,page);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -95,12 +102,12 @@ namespace ApiProject.Controllers
         }
         [Route("search-by-id")]
         [HttpPost]
-        public dynamic SearchByCategoryId(Category category)
+        public dynamic SearchByCategoryId(Category category,int page)
         {
             try
             {
-                var result2 = _categoryService.SearchByCategoryId(category);
-                return Ok(result2);
+                var data = _categoryService.SearchByCategoryId(category,page);
+                return Ok(data);
             }
             catch (Exception e)
             {

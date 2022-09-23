@@ -8,12 +8,12 @@ namespace ApiProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PrioritizedController : ControllerBase
+    public class CommentController : ControllerBase
     {
-        private readonly IPrioritizedServices _prioritizedServices;
-        public PrioritizedController(IPrioritizedServices prioritizedServices)
+        private readonly ICommentService _commentService;
+        public CommentController(ICommentService commentService)
         {
-            _prioritizedServices = prioritizedServices;
+            _commentService = commentService;
         }
         [Route("get")]
         [HttpGet]
@@ -21,7 +21,7 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var data = _prioritizedServices.GetCurrentPage(page);
+                var data = _commentService.GetCurrentPage(page);
                 return data;
             }
             catch (Exception e)
@@ -30,13 +30,14 @@ namespace ApiProject.Controllers
             }
 
         }
+
         [Route("get-all")]
         [HttpGet]
-        public dynamic getAllPrioritized()
+        public dynamic getAllComment()
         {
             try
             {
-                var data = _prioritizedServices.getAllPz();
+                var data = _commentService.GetAll();
                 return Ok(data);
             }
             catch (Exception e)
@@ -46,11 +47,11 @@ namespace ApiProject.Controllers
         }
         [Route("create")]
         [HttpPost]
-        public dynamic CreatePz(Prioritized prioritized)
+        public dynamic Create(Comment comment)
         {
             try
             {
-                var data = _prioritizedServices.CreatePz(prioritized);
+                var data = _commentService.CreateComment(comment);
                 return Ok(data);
             }
             catch (Exception e)
@@ -60,11 +61,11 @@ namespace ApiProject.Controllers
         }
         [Route("update")]
         [HttpPut]
-        public dynamic Update(Prioritized prioritized)
+        public dynamic UpdateComment(Comment comment)
         {
             try
             {
-                var data = _prioritizedServices.UpdatePz(prioritized);
+                var data = _commentService.UpdateComment(comment);
                 return Ok(data);
             }
             catch (Exception e)
@@ -72,27 +73,13 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("change-status")]
-        [HttpPost]
-        public dynamic ChangeStatus(Prioritized prioritized)
+        [Route("delete")]
+        [HttpDelete]
+        public dynamic DeleteComment(Comment comment)
         {
             try
             {
-                var data = _prioritizedServices.ChangeStatus(prioritized);
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-        }
-        [Route("search-by-name")]
-        [HttpPost]
-        public dynamic SearchByRoleName(Prioritized prioritized)
-        {
-            try
-            {
-                var data = _prioritizedServices.SearchByPzName(prioritized);
+                var data = _commentService.DeleteComment(comment);
                 return Ok(data);
             }
             catch (Exception e)
@@ -102,11 +89,25 @@ namespace ApiProject.Controllers
         }
         [Route("search-by-id")]
         [HttpPost]
-        public dynamic SearchByRoleID(Prioritized prioritized)
+        public dynamic SearchById(Comment comment,int page)
         {
             try
             {
-                var data = _prioritizedServices.SearchPzById(prioritized);
+                var data = _commentService.SearchById(comment,page);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("Search-by-name")]
+        [HttpPost]
+        public dynamic SearchByName(Comment comment, int page)
+        {
+            try
+            {
+                var data = _commentService.SearchByName(comment,page);
                 return Ok(data);
             }
             catch (Exception e)

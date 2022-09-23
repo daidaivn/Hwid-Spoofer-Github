@@ -1,5 +1,6 @@
 ﻿using ApiProject.IServices;
 using ApiProject.Models;
+using ApiProject.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,21 @@ namespace ApiProject.Controllers
         {
             _genderServices = genderServices;
         }
+        [Route("get")]
+        [HttpGet]
+        public dynamic GetCurrentPage(int page)
+        {
+            try
+            {
+                var data = _genderServices.GetCurrentPage(page);
+                return data;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
 
+        }
         [Route("get-all")]
         [HttpGet]
         public dynamic getAllGender()
@@ -35,8 +50,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var keyCreated = _genderServices.CreateGender(gender);
-                return Ok(keyCreated);
+                var data = _genderServices.CreateGender(gender);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -49,8 +64,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var keyUpdate = _genderServices.UpdateGender(gender);
-                return Ok(keyUpdate);
+                var data = _genderServices.UpdateGender(gender);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -63,8 +78,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var keyUpdate = _genderServices.ChangeStatus(gender);
-                return Ok(keyUpdate);
+                var data = _genderServices.ChangeStatus(gender);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -77,22 +92,22 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var data1 = _genderServices.SearchByGenderName(gender);
-                return Ok(data1);
+                var data = _genderServices.SearchByGenderName(gender);
+                return Ok(data);
             }
             catch (Exception e)
             {
                 return e.Message;
             }
         }
-        [Route("search-byS-id")]
+        [Route("search-by-id")]
         [HttpPost]
         public dynamic SearchByGenderID(Gender gender)
         {
             try
             {
-                var data1 = _genderServices.SearchGenderById(gender);
-                return Ok(data1);
+                var data = _genderServices.SearchGenderById(gender);
+                return Ok(data);
             }
             catch (Exception e)
             {
