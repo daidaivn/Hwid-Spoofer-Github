@@ -13,9 +13,29 @@ namespace ApiProject.Services
             _context = context;
         }
 
+        public dynamic GetCurrentPage(int page)
+        {
+            var pageRes = 2f;
+            var genders = _context.Genders.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
+            var pageCount = Math.Ceiling(_context.Genders.Count() / pageRes);
+            var output = genders.Select(c => new
+            {
+                c.GenderId,
+                c.GenderName,
+                c.Status,
+                pageCount,
+            });
+            return output;
+        }
         public IQueryable<dynamic> getAllGender()
         {
-            return _context.Genders;
+            var output = _context.Genders.Select(c => new
+            {
+                c.GenderId,
+                c.GenderName,
+                c.Status,
+            });
+            return output;
         }
         public dynamic CreateGender(Gender gender)
         {

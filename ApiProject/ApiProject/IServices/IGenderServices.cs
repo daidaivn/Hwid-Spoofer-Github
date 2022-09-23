@@ -6,6 +6,7 @@ namespace ApiProject.IServices
 {
     public interface IGenderServices
     {
+        public dynamic GetCurrentPage(int page);
         dynamic ChangeStatus(Gender gender);
         IQueryable<dynamic> getAllGender();
         dynamic CreateGender(Gender gender);

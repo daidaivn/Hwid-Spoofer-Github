@@ -15,7 +15,21 @@ namespace ApiProject.Controllers
         {
             _prioritizedServices = prioritizedServices;
         }
+        [Route("paging")]
+        [HttpGet]
+        public dynamic GetCurrentPage(int page)
+        {
+            try
+            {
+                var data = _prioritizedServices.GetCurrentPage(page);
+                return data;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
 
+        }
         [Route("get-all")]
         [HttpGet]
         public dynamic getAllPrioritized()
@@ -36,8 +50,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var keyCreated = _prioritizedServices.CreatePz(prioritized);
-                return Ok(keyCreated);
+                var data = _prioritizedServices.CreatePz(prioritized);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -46,12 +60,12 @@ namespace ApiProject.Controllers
         }
         [Route("update")]
         [HttpPut]
-        public dynamic UpdateRole(Prioritized prioritized)
+        public dynamic Update(Prioritized prioritized)
         {
             try
             {
-                var keyUpdate = _prioritizedServices.UpdatePz(prioritized);
-                return Ok(keyUpdate);
+                var data = _prioritizedServices.UpdatePz(prioritized);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -64,8 +78,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var result2 = _prioritizedServices.ChangeStatus(prioritized);
-                return Ok(result2);
+                var data = _prioritizedServices.ChangeStatus(prioritized);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -78,8 +92,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var data1 = _prioritizedServices.SearchByPzName(prioritized);
-                return Ok(data1);
+                var data = _prioritizedServices.SearchByPzName(prioritized);
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -92,8 +106,8 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var data1 = _prioritizedServices.SearchPzById(prioritized);
-                return Ok(data1);
+                var data = _prioritizedServices.SearchPzById(prioritized);
+                return Ok(data);
             }
             catch (Exception e)
             {

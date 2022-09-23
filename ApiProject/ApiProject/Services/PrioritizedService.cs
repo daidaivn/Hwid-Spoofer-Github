@@ -14,6 +14,20 @@ namespace ApiProject.Services
             _context = context;
         }
 
+        public dynamic GetCurrentPage(int page)
+        {
+            var pageRes = 2f;
+            var prioritizeds = _context.Prioritizeds.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
+            var pageCount = Math.Ceiling(_context.Prioritizeds.Count() / pageRes);
+            var output = prioritizeds.Select(c => new
+            {
+                c.PrioritizedId,
+                c.PrioritizedName,
+                c.Status,
+                pageCount,
+            });
+            return output;
+        }
         public IQueryable<dynamic> getAllPz()
         {
             var items = _context.Prioritizeds.Include(p=>p.Workings);
