@@ -6,7 +6,8 @@ namespace ApiProject.IServices
 {
     public interface IRoleServices
     {
-        IQueryable<dynamic> getAllRole(int page);
+        IQueryable<dynamic> getAllRole();
+        IQueryable<dynamic> pagingRole(int page);
         dynamic CreateRole(Role role);
         dynamic UpdateRole(Role role);
         dynamic ChangeStatus(Role role);

@@ -12,14 +12,21 @@ namespace ApiProject.Services
             _context = context;
         }
 
-        public IQueryable<dynamic> getAllRole(int page)
+        public IQueryable<dynamic> getAllRole()
         {
-            
+            return _context.Roles.Select(c => new {
+                c.RoleId,
+                c.RoleName,
+                c.Status,
+            });
+        }
+        public IQueryable<dynamic> pagingRole(int page)
+        {
             var pageResults = 3f;
             var pageCount = Math.Ceiling(_context.Roles.Count() / pageResults);
-            var role2s = _context.Roles.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
+            var pagingRole = _context.Roles.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
 
-            return role2s.Select(c => new { 
+            return pagingRole.Select(c => new { 
                 c.RoleId,
                 c.RoleName,
                 c.Status,
