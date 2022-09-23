@@ -15,7 +15,7 @@ namespace ApiProject.Controllers
         {
             _genderServices = genderServices;
         }
-        [Route("get")]
+        [Route("paging")]
         [HttpGet]
         public dynamic GetCurrentPage(int page)
         {

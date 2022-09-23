@@ -15,7 +15,7 @@ namespace ApiProject.Controllers
         {
             _commentService = commentService;
         }
-        [Route("get")]
+        [Route("paging")]
         [HttpGet]
         public dynamic GetCurrentPage(int page)
         {
