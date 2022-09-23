@@ -15,11 +15,11 @@ namespace ApiProject.Controllers
         {
             _categoryService = categoryService;
         }
-        [Route("get")]
+        [Route("paging")]
         [HttpGet]
         public dynamic getcat(int page)
         {
-            var data = _categoryService.getcat(page);
+            var data = _categoryService.pagingCate(page);
             return data;
         }
 

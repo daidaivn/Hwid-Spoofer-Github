@@ -30,6 +30,7 @@ namespace ApiProject.Services
                 c.RoleId,
                 c.RoleName,
                 c.Status,
+                pageCount
             });
         }
 

@@ -11,18 +11,12 @@ namespace ApiProject.Services
         {
             _context = context;
         }
-        public dynamic getcat(int page=1)
+        public dynamic pagingCate(int page)
         {
             var pageRes = 2f;
             var pageCount = Math.Ceiling(_context.Categories.Count()/pageRes);
 
             var categories = _context.Categories.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
-            //var output = new CategoryRes
-            //{
-            //    Categories = categories,
-            //    CurrentPage = page,
-            //    Pages = (int)pageCount
-            //};
             return categories;
         }
         public IQueryable<dynamic> getAllCategory()

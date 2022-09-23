@@ -30,6 +30,20 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
+        [Route("paging")]
+        [HttpGet]
+        public dynamic pagingUsers(int page)
+        {
+            try
+            {
+                var data = _userServices.pagingUsers(page);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
         [Route("create-user")]
         [HttpPost]
         public dynamic Create(User user)

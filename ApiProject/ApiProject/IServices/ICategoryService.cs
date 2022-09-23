@@ -4,7 +4,7 @@ namespace ApiProject.IServices
 {
     public interface ICategoryService
     {
-        public dynamic getcat(int page);
+        public dynamic pagingCate(int page);
         public IQueryable<dynamic> getAllCategory();
         public dynamic UpdateCategory(Category category);
         public IQueryable<dynamic> SearchByCategoryName(Category category);

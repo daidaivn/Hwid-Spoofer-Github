@@ -13,7 +13,7 @@ namespace ApiProject.Services
         }
         public IQueryable<dynamic> getAllWorking()
         {
-            var items = _context.Workings.Include(w1=>w1.Categories).Include(w2=>w2.Users);
+            var items = _context.Workings.Include(w1 => w1.Categories).Include(w2 => w2.Users);
             var output = from item in items
                          select new
                          {
@@ -23,11 +23,63 @@ namespace ApiProject.Services
                              item.Deadline,
                              item.WorkingStatus,
                              item.Prioritized,
-                             item.Categories,
+                             Category = from c in item.Categories
+                                        select new
+                                        {
+                                            c.CategoryId,
+                                            c.CategoryName,
+                                        },
                              item.UserConfirm,
                              item.Description,
+                             user = from u in item.Users select new
+                                    {
+                                        u.UserId,
+                                        u.Name,
+                                    },
+                             comment = from cm in item.Comments select new
+                                       {
+                                            cm.Id,
+                                            cm.Comment1,
+                                       },
+                                       
                          };
             return output;
+        }
+        public IQueryable<dynamic> pagingWorking(int page)
+        {
+            var pageResults = 3f;
+            var pageCount = Math.Ceiling(_context.Workings.Count() / pageResults);
+            var pagingWorking = _context.Workings.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
+
+            return pagingWorking.Select(c => new
+            {
+                c.WorkingId,
+                c.WorkingName,
+                c.DateCreate,
+                c.Deadline,
+                c.WorkingStatus,
+                c.Prioritized,
+                Category = from d in c.Categories
+                           select new
+                           {
+                               d.CategoryId,
+                               d.CategoryName,
+                           },
+                c.UserConfirm,
+                c.Description,
+                user = from u in c.Users
+                       select new
+                       {
+                           u.UserId,
+                           u.Name,
+                       },
+                comment = from cm in c.Comments
+                          select new
+                          {
+                              cm.Id,
+                              cm.Comment1,
+                          },
+            });
         }
         public dynamic CreateWorking(Working working)
         {
@@ -44,7 +96,7 @@ namespace ApiProject.Services
                 WorkingStatusId = working.WorkingStatusId,
                 PrioritizedId = working.PrioritizedId,
                 UserConfirm = working.UserConfirm,
-                Description = working.Description,   
+                Description = working.Description,
             };
             _context.Workings.Add(nwork);
             _context.SaveChanges();
