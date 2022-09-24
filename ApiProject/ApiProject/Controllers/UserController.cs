@@ -104,11 +104,11 @@ namespace ApiProject.Controllers
         }
         [Route("search-user-id")]
         [HttpPost]
-        public dynamic SearchByUserID(User user)
+        public dynamic SearchByUserID(User user, int page)
         {
             try
             {
-                var data1 = _userServices.SearchUserById(user);
+                var data1 = _userServices.SearchUserById(user,page);
                 return Ok(data1);
             }
             catch (Exception e)
