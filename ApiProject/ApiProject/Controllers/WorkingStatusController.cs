@@ -20,7 +20,21 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var data = _workingStatusService.getAllWorkingStats();
+                var data = _workingStatusService.getAllWorkingStatus();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("pagin")]
+        [HttpGet]
+        public dynamic pagingWorkingStatus(int page)
+        {
+            try
+            {
+                var data = _workingStatusService.pagingWorkingStatus(page);
                 return Ok(data);
             }
             catch (Exception e)

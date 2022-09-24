@@ -11,7 +11,7 @@ namespace ApiProject.Services
         {
             _context = context;
         }
-        public IQueryable<dynamic> getAllWorkingStats()
+        public IQueryable<dynamic> getAllWorkingStatus()
         {
             return _context.WorkingStatuses.Select(c => new
             {
@@ -23,6 +23,19 @@ namespace ApiProject.Services
                            {
                                r.WorkingId, 
                            }
+            });
+        }
+        public IQueryable<dynamic> pagingWorkingStatus(int page)
+        {
+            var pageResults = 3f;
+            var pageCount = Math.Ceiling(_context.WorkingStatuses.Count() / pageResults);
+            var pagingWorkingStatus = _context.WorkingStatuses.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
+
+            return pagingWorkingStatus.Select(c => new {
+                c.WorkingStatusId,
+                c.WorkingStatusName,
+                c.Status,
+                pageCount
             });
         }
         public dynamic CreateWorkingStatus(WorkingStatus workingStatus)

@@ -7,6 +7,7 @@ namespace ApiProject.IServices
     public interface IUserServices
     {
         IQueryable<dynamic> getAllUser();
+        IQueryable<dynamic> pagingUsers(int page);
         dynamic CreateUser(User user);
         dynamic CreateUserRole(User user);
         dynamic UpdateUserRole(User user);

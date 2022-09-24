@@ -29,6 +29,20 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
+        [Route("paging")]
+        [HttpGet]
+        public dynamic pagingWorking(int page)
+        {
+            try
+            {
+                var data = _workingServices.pagingWorking(page);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
         [Route("create")]
         [HttpPost]
         public dynamic Create(Working working)

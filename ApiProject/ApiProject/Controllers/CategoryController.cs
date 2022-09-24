@@ -19,6 +19,10 @@ namespace ApiProject.Controllers
         [HttpGet]
         public dynamic GetCurrentPage(int page)
         {
+<<<<<<< HEAD
+            var data = _categoryService.pagingCate(page);
+            return data;
+=======
             try
             {
                 var data = _categoryService.GetCurrentPage(page);
@@ -28,6 +32,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
             
+>>>>>>> a9658ab5f533a641d1018b7843d4a6845a6f83b8
         }
 
         [Route("get-all")]

@@ -25,9 +25,9 @@ namespace ApiProject.Services
                              item.Password,
                              item.Address,
                              item.Mobile,
+                             item.Status,
                              item.GenderId,
                              item.Gender.GenderName,
-                             //item.Roles
                              Roles = from r in item.Roles
                                      select new
                                      {
@@ -37,6 +37,34 @@ namespace ApiProject.Services
                                      }
                          };
             return output;
+        }
+
+        public IQueryable<dynamic> pagingUsers(int page)
+        {
+            var pageResults = 3f;
+            var pageCount = Math.Ceiling(_context.Users.Count() / pageResults);
+            var pagingUsers = _context.Users.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
+
+            return pagingUsers.Select(c => new {
+                c.UserId,
+                c.Name,
+                c.Avatar,
+                c.Email,
+                c.Password,
+                c.Address,
+                c.Mobile,
+                c.GenderId,
+                c.Gender.GenderName,
+                Roles = from r in c.Roles
+                        select new
+                        {
+                            r.RoleId,
+                            r.RoleName,
+                            r.Status
+                        },
+                c.Status,
+                pageCount
+            });
         }
         public dynamic CreateUser(User user)
         {
@@ -56,6 +84,7 @@ namespace ApiProject.Services
             _context.SaveChanges();
             return rl;
         }
+
 
         public dynamic UpdateUserRole(User user)
         {
@@ -130,6 +159,13 @@ namespace ApiProject.Services
                 return false;
             }
             checkId.Name = user.Name;
+            checkId.Avatar = user.Avatar;
+            checkId.Email = user.Email;
+            checkId.Password = user.Password;
+            checkId.Address = user.Address;
+            checkId.Mobile = user.Mobile;
+            checkId.GenderId = user.GenderId;
+
             _context.Users.Update(checkId);
             _context.SaveChanges();
             return checkId;

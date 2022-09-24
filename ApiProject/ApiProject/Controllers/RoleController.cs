@@ -32,7 +32,7 @@ namespace ApiProject.Controllers
         }
 
         [Route("paging")]
-        [HttpPost]
+        [HttpGet]
         public dynamic getAllRole(int page)
         {
             try
