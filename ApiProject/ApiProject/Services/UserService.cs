@@ -198,7 +198,7 @@ namespace ApiProject.Services
                           {
                               cmt.Id,
                               cmt.Comment1,
-                              work = from w in _context.Comments.Include(c => c.Workings).FirstOrDefault(w => w.Id == cmt.Id).Workings.ToList()
+                              work = from w in _context.Comments.Include(c=>c.Workings).FirstOrDefault(w => w.Id == cmt.Id).Workings.ToList()
                                      select new
                                      {
                                          w.WorkingId,
