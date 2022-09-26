@@ -28,7 +28,7 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
         }
-        [Route("pagin")]
+        [Route("paging")]
         [HttpGet]
         public dynamic pagingWorkingStatus(int page)
         {

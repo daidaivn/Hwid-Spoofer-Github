@@ -45,7 +45,8 @@ namespace ApiProject.Services
             var pageCount = Math.Ceiling(_context.Users.Count() / pageResults);
             var pagingUsers = _context.Users.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
 
-            return pagingUsers.Select(c => new {
+            return pagingUsers.Select(c => new
+            {
                 c.UserId,
                 c.Name,
                 c.Avatar,
@@ -171,11 +172,36 @@ namespace ApiProject.Services
             return checkId;
 
         }
-        public IQueryable<dynamic> SearchByName(User user)
+        public IQueryable<dynamic> SearchByName(User user, int page)
         {
             var keyword = _context.Users.Where(c => c.Name.Contains(user.Name.Trim()));
-            return keyword.ToList().AsQueryable();
+            var pageResults = 3f;
+            var pageCount = Math.Ceiling(_context.Users.Count() / pageResults);
+            var pagingUsers = keyword.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
+
+            return pagingUsers.Select(c => new
+            {
+                c.UserId,
+                c.Name,
+                c.Avatar,
+                c.Email,
+                c.Password,
+                c.Address,
+                c.Mobile,
+                c.GenderId,
+                c.Gender.GenderName,
+                Roles = from r in c.Roles
+                        select new
+                        {
+                            r.RoleId,
+                            r.RoleName,
+                            r.Status
+                        },
+                c.Status,
+                pageCount
+            });
         }
+
         public dynamic SearchUserById(User user, int page)
         {
             var checkId = _context.Users.Include(w => w.Comments).Include(u => u.Workings).Where(c => c.UserId == user.UserId).FirstOrDefault();
@@ -198,7 +224,7 @@ namespace ApiProject.Services
                           {
                               cmt.Id,
                               cmt.Comment1,
-                              work = from w in _context.Comments.Include(c=>c.Workings).FirstOrDefault(w => w.Id == cmt.Id).Workings.ToList()
+                              work = from w in _context.Comments.Include(c => c.Workings).FirstOrDefault(w => w.Id == cmt.Id).Workings.ToList()
                                      select new
                                      {
                                          w.WorkingId,
@@ -210,9 +236,11 @@ namespace ApiProject.Services
             return output;
         }
 
+
         public dynamic ChangeStatus(User user)
         {
             var checkId = _context.Users.FirstOrDefault(c => c.UserId == user.UserId);
+
             if (checkId == null)
             {
                 return false;
@@ -227,3 +255,4 @@ namespace ApiProject.Services
         }
     }
 }
+

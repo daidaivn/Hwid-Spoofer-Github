@@ -12,7 +12,7 @@ namespace ApiProject.IServices
         dynamic CreateUserRole(User user);
         dynamic UpdateUserRole(User user);
         dynamic UpdateUser(User user);
-        IQueryable<dynamic> SearchByName(User user);
+        IQueryable<dynamic> SearchByName(User user,int page);
         dynamic SearchUserById(User user, int  page);
         dynamic ChangeStatus(User user);
     }
