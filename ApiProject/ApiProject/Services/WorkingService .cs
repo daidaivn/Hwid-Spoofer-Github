@@ -91,9 +91,9 @@ namespace ApiProject.Services
             {
                 //WorkingId = working.WorkingId,
                 WorkingName = working.WorkingName,
-                DateCreate = working.DateCreate,
+                DateCreate = DateTime.Now,
                 Deadline = working.Deadline,
-                WorkingStatusId = working.WorkingStatusId,
+                WorkingStatusId = 1,
                 PrioritizedId = working.PrioritizedId,
                 UserConfirm = working.UserConfirm,
                 Description = working.Description,
@@ -110,7 +110,7 @@ namespace ApiProject.Services
                 return false;
             }
             checkId.WorkingName = working.WorkingName;
-            checkId.DateCreate = working.DateCreate;
+            checkId.DateCreate =DateTime.Now;
             checkId.Deadline = working.Deadline;
             checkId.WorkingStatusId = working.WorkingStatusId;
             checkId.PrioritizedId = working.PrioritizedId;
@@ -183,9 +183,9 @@ namespace ApiProject.Services
             {
                 //WorkingId = working.WorkingId,
                 WorkingName = working.WorkingName.Trim(),
-                DateCreate = working.DateCreate,
+                DateCreate = DateTime.Now,
                 Deadline = working.Deadline,
-                WorkingStatusId = working.WorkingStatusId,
+                WorkingStatusId = 1,
                 PrioritizedId = working.PrioritizedId,
                 UserConfirm = working.UserConfirm,
                 Description = working.Description
