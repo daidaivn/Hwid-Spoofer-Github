@@ -13,25 +13,12 @@ namespace ApiProject.Services
         {
             _context = context;
         }
-<<<<<<< HEAD
         public dynamic pagingCate(int page)
-        {
-            var pageRes = 2f;
-            var categories = _context.Categories.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
-            return categories;
-=======
-
-        public dynamic pagingCate(int page)
-
-       // public dynamic GetCurrentPage (int page)
 
         {
             var pageRes = 2f;
             var categories = _context.Categories.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
 
-            //return categories;
-
->>>>>>> f459203318349b72f96f3d55b236f0acc49e0efd
             var pageCount = Math.Ceiling(_context.Categories.Count()/pageRes);
             var output = categories.Select(c => new
             {
@@ -41,10 +28,6 @@ namespace ApiProject.Services
                 pageCount,
             });
             return output;
-<<<<<<< HEAD
-=======
-
->>>>>>> f459203318349b72f96f3d55b236f0acc49e0efd
         }
         public IQueryable<dynamic> getAllCategory()
         {
