@@ -1,5 +1,6 @@
 ﻿using ApiProject.IServices;
 using ApiProject.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject.Services
@@ -208,9 +209,48 @@ namespace ApiProject.Services
             _context.SaveChanges();
             return newWorking;
         }
-        public IQueryable<dynamic> SearchByWorkingName(Working working)
+        public IQueryable<dynamic> SearchByWorkingName(Working working,int page)
         {
             var keyword = _context.Workings.Where(c => c.WorkingName.Contains(working.WorkingName.Trim()));
+
+            var pageResults = 2f;
+            var pageCount = Math.Ceiling(keyword.Count() / pageResults);
+            var pagingWorking = keyword.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
+
+            var items = pagingWorking.Include(w1 => w1.Categories).Include(w2 => w2.Users).Include(w3=>w3.Comments);
+            var output = from item in items
+                         select new
+                         {
+                             item.WorkingId,
+                             item.WorkingName,
+                             item.DateCreate,
+                             item.Deadline,
+                             item.WorkingStatus,
+                             item.Prioritized,
+                             pageCount,
+                             Category = from c in item.Categories
+                                        select new
+                                        {
+                                            c.CategoryId,
+                                            c.CategoryName,
+                                        },
+                             item.UserConfirm,
+                             item.Description,
+                             user = from u in item.Users
+                                    select new
+                                    {
+                                        u.UserId,
+                                        u.Name,
+                                    },
+                             comment = from cm in item.Comments
+                                       select new
+                                       {
+                                           cm.Id,
+                                           cm.Comment1,
+                                       },
+
+                         };
+            return output;
             return keyword.ToList().AsQueryable();
         }
         public dynamic SearchWorkingById(Working working)

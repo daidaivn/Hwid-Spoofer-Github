@@ -101,11 +101,11 @@ namespace ApiProject.Controllers
         }
         [Route("search-by-name")]
         [HttpPost]
-        public dynamic SearchByWorkingName(Working working)
+        public dynamic SearchByWorkingName(Working working, int page)
         {
             try
             {
-                var data1 = _workingServices.SearchByWorkingName(working);
+                var data1 = _workingServices.SearchByWorkingName(working,page);
                 return Ok(data1);
             }
             catch (Exception e)
