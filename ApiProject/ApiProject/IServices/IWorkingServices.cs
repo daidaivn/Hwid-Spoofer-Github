@@ -12,7 +12,7 @@ namespace ApiProject.IServices
         dynamic UpdateWorking(Working working);
         dynamic UpdateConnect(Working working);
         dynamic CreateConnect(Working working);
-        IQueryable<dynamic> SearchByWorkingName(Working working);
+        IQueryable<dynamic> SearchByWorkingName(Working working,int page);
         dynamic SearchWorkingById(Working working);
     }
 }
