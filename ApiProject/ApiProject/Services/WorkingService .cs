@@ -32,17 +32,19 @@ namespace ApiProject.Services
                                         },
                              item.UserConfirm,
                              item.Description,
-                             user = from u in item.Users select new
+                             user = from u in item.Users
+                                    select new
                                     {
                                         u.UserId,
                                         u.Name,
                                     },
-                             comment = from cm in item.Comments select new
+                             comment = from cm in item.Comments
+                                       select new
                                        {
-                                            cm.Id,
-                                            cm.Comment1,
+                                           cm.Id,
+                                           cm.Comment1,
                                        },
-                                       
+
                          };
             return output;
         }
@@ -111,7 +113,7 @@ namespace ApiProject.Services
                 return false;
             }
             checkId.WorkingName = working.WorkingName;
-            checkId.DateCreate =DateTime.Now;
+            checkId.DateCreate = DateTime.Now;
             checkId.Deadline = working.Deadline;
             checkId.WorkingStatusId = working.WorkingStatusId;
             checkId.PrioritizedId = working.PrioritizedId;
@@ -209,7 +211,7 @@ namespace ApiProject.Services
             _context.SaveChanges();
             return newWorking;
         }
-        public IQueryable<dynamic> SearchByWorkingName(Working working,int page)
+        public IQueryable<dynamic> SearchByWorkingName(Working working, int page)
         {
             var keyword = _context.Workings.Where(c => c.WorkingName.Contains(working.WorkingName.Trim()));
 
@@ -217,7 +219,7 @@ namespace ApiProject.Services
             var pageCount = Math.Ceiling(keyword.Count() / pageResults);
             var pagingWorking = keyword.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
 
-            var items = pagingWorking.Include(w1 => w1.Categories).Include(w2 => w2.Users).Include(w3=>w3.Comments);
+            var items = pagingWorking.Include(w1 => w1.Categories).Include(w2 => w2.Users).Include(w3 => w3.Comments);
             var output = from item in items
                          select new
                          {
@@ -255,8 +257,33 @@ namespace ApiProject.Services
         }
         public dynamic SearchWorkingById(Working working)
         {
-            var pzById = _context.Workings.FirstOrDefault(c => c.WorkingId == working.WorkingId);
-            return pzById;
+            var pzById = _context.Workings.Include(c => c.Comments).Include(c => c.Users).FirstOrDefault(c => c.WorkingId == working.WorkingId);
+            var output = new
+            {
+                pzById.WorkingId,
+                pzById.WorkingName,
+                userWork = from u in pzById.Users
+                       select new
+                       {
+                           u.UserId,
+                           u.Name,
+                       },
+                Comment = from cm in pzById.Comments
+                          select new
+                          {
+                              cm.Id,
+                              cm.Comment1,
+                              UserComment = _context.Users.Include(u => u.Comments).Where(c => c.UserId == cm.Id).Select(c => new
+                              {
+                                 c.UserId,
+                                 c.Name,
+                              })
+                              
+                },
+            };
+
+
+            return output;
         }
     }
 }

@@ -83,6 +83,7 @@ namespace ApiProject.Services
         public dynamic SearchRoleById(Role role)
         {
             var pzById = _context.Roles.FirstOrDefault(c => c.RoleId == role.RoleId);
+            
             return pzById;
         }
     }
