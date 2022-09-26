@@ -208,7 +208,7 @@ namespace ApiProject.Services
             var pageRes = 2f;
             var workings = checkId.Workings.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
             var comments = checkId.Comments.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
-            var pageCount = Math.Ceiling(checkId.Workings.Count() / pageRes);
+            var pageCount1 = Math.Ceiling(checkId.Workings.Count() / pageRes);
             var output = new
             {
                 checkId.UserId,
@@ -217,7 +217,8 @@ namespace ApiProject.Services
                           select new
                           {
                               w.WorkingId,
-                              w.WorkingName
+                              w.WorkingName,
+                              pageCount1,
                           },
                 comment = from cmt in comments
                           select new
@@ -230,7 +231,7 @@ namespace ApiProject.Services
                                          w.WorkingId,
                                          w.WorkingName
                                      },
-                              pageCount,
+                              
                           }
             };
             return output;
