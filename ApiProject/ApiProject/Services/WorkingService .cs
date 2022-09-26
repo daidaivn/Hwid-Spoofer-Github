@@ -216,7 +216,7 @@ namespace ApiProject.Services
             var pageResults = 2f;
             var pageCount = Math.Ceiling(keyword.Count() / pageResults);
             var pagingWorking = keyword.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
-
+            //var pagingComment = keyword.Skip((page - 1) * (int)pageResults).Take((int)pageResults);
             var items = pagingWorking.Include(w1 => w1.Categories).Include(w2 => w2.Users).Include(w3=>w3.Comments);
             var output = from item in items
                          select new
@@ -242,12 +242,12 @@ namespace ApiProject.Services
                                         u.UserId,
                                         u.Name,
                                     },
-                             comment = from cm in item.Comments
-                                       select new
-                                       {
-                                           cm.Id,
-                                           cm.Comment1,
-                                       },
+                             //comment = from cm in item.Comments
+                             //          select new
+                             //          {
+                             //              cm.Id,
+                             //              cm.Comment1,
+                             //          },
 
                          };
             return output;
