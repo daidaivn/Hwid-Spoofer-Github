@@ -1,5 +1,6 @@
 ﻿using ApiProject.IServices;
 using ApiProject.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject.Services
@@ -148,7 +149,7 @@ namespace ApiProject.Services
             _context.SaveChanges();
             return rl;
         }
-    
+
 
         public dynamic UpdateUser(User user)
         {
@@ -175,10 +176,38 @@ namespace ApiProject.Services
             var keyword = _context.Users.Where(c => c.Name.Contains(user.Name.Trim()));
             return keyword.ToList().AsQueryable();
         }
-        public dynamic SearchUserById(User user)
+        public dynamic SearchUserById(User user, int page)
         {
-            var pzById = _context.Users.FirstOrDefault(c => c.UserId == user.UserId);
-            return pzById;
+            var checkId = _context.Users.Include(w => w.Comments).Include(u => u.Workings).Where(c => c.UserId == user.UserId).FirstOrDefault();
+            var pageRes = 2f;
+            var workings = checkId.Workings.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
+            var comments = checkId.Comments.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
+            var pageCount = Math.Ceiling(checkId.Workings.Count() / pageRes);
+            var output = new
+            {
+                checkId.UserId,
+                checkId.Name,
+                Working = from w in workings
+                          select new
+                          {
+                              w.WorkingId,
+                              w.WorkingName
+                          },
+                comment = from cmt in comments
+                          select new
+                          {
+                              cmt.Id,
+                              cmt.Comment1,
+                              work = from w in _context.Comments.Include(c=>c.Workings).FirstOrDefault(w => w.Id == cmt.Id).Workings.ToList()
+                                     select new
+                                     {
+                                         w.WorkingId,
+                                         w.WorkingName
+                                     },
+                              pageCount,
+                          }
+            };
+            return output;
         }
 
         public dynamic ChangeStatus(User user)

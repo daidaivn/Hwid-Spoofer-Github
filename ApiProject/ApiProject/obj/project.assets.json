@@ -2260,24 +2260,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dongh\\.nuget\\packages\\": {},
-    "C:\\APP CODE\\VisuaCode\\Installer\\NuGetPackages": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Tek4TV\\ProjectTek4TV\\ApiProject\\ApiProject\\ApiProject.csproj",
+      "projectUniqueName": "C:\\tekfix\\ProjectTek4TV\\ApiProject\\ApiProject\\ApiProject.csproj",
       "projectName": "ApiProject",
-      "projectPath": "C:\\Tek4TV\\ProjectTek4TV\\ApiProject\\ApiProject\\ApiProject.csproj",
-      "packagesPath": "C:\\Users\\dongh\\.nuget\\packages\\",
-      "outputPath": "C:\\Tek4TV\\ProjectTek4TV\\ApiProject\\ApiProject\\obj\\",
+      "projectPath": "C:\\tekfix\\ProjectTek4TV\\ApiProject\\ApiProject\\ApiProject.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\tekfix\\ProjectTek4TV\\ApiProject\\ApiProject\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\APP CODE\\VisuaCode\\Installer\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\dongh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2285,7 +2280,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

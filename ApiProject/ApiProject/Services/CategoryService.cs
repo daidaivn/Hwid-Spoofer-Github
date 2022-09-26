@@ -13,11 +13,25 @@ namespace ApiProject.Services
         {
             _context = context;
         }
+<<<<<<< HEAD
         public dynamic pagingCate(int page)
         {
             var pageRes = 2f;
             var categories = _context.Categories.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
             return categories;
+=======
+
+        public dynamic pagingCate(int page)
+
+       // public dynamic GetCurrentPage (int page)
+
+        {
+            var pageRes = 2f;
+            var categories = _context.Categories.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
+
+            //return categories;
+
+>>>>>>> f459203318349b72f96f3d55b236f0acc49e0efd
             var pageCount = Math.Ceiling(_context.Categories.Count()/pageRes);
             var output = categories.Select(c => new
             {
@@ -27,6 +41,10 @@ namespace ApiProject.Services
                 pageCount,
             });
             return output;
+<<<<<<< HEAD
+=======
+
+>>>>>>> f459203318349b72f96f3d55b236f0acc49e0efd
         }
         public IQueryable<dynamic> getAllCategory()
         {
@@ -92,10 +110,10 @@ namespace ApiProject.Services
 
         public dynamic SearchByCategoryName(Category category,int page)
         {
-            var keyword = _context.Categories.Where(c => c.CategoryName.Contains(category.CategoryName));
+            var checkId = _context.Categories.Where(c => c.CategoryName.Contains(category.CategoryName.Trim()));
             var pageRes = 2f;
-            var categories = keyword.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
-            var pageCount = Math.Ceiling(keyword.Count() / pageRes);
+            var categories = checkId.Skip((page - 1) * (int)pageRes).Take((int)pageRes).ToList();
+            var pageCount = Math.Ceiling(checkId.Count() / pageRes);
             var output = categories.Select(c => new
             {
                 c.CategoryId,

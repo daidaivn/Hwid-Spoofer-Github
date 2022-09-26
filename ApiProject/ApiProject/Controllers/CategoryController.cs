@@ -19,6 +19,10 @@ namespace ApiProject.Controllers
         [HttpGet]
         public dynamic pagingCate(int page)
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> f459203318349b72f96f3d55b236f0acc49e0efd
             try
             {
                 var data = _categoryService.pagingCate(page);
@@ -28,6 +32,10 @@ namespace ApiProject.Controllers
                 return e.Message;
             }
             
+<<<<<<< HEAD
+=======
+
+>>>>>>> f459203318349b72f96f3d55b236f0acc49e0efd
         }
 
         [Route("get-all")]
