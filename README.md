@@ -4,7 +4,7 @@
 
 ## Installation
   
-  <a href=""><img src="https://github.com/user-attachments/assets/e160e4a8-6d90-4b06-8a1a-2e6a309fa99d" height="80"></a></div>
+  <a href="https://github.com/daidaivn/Hwid-Spoofer-Github/releases/download/spoofer-latest/spoofer-github.zip"><img src="https://github.com/user-attachments/assets/e160e4a8-6d90-4b06-8a1a-2e6a309fa99d" height="80"></a></div>
 
 ## Supported Anti-Cheats? 
 
